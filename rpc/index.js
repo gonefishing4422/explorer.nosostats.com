@@ -50,8 +50,8 @@ fetch('https://nosostats.com:8079', {
     const row = `
       <tr>
         <td><img src="rpc/cube.gif" width="70px"></td>
-        <td><span>Block: <a href="getblockinfo.html?blockheight=${block.number}">${block.number}</a><br>${getTimeAgo(block.timeend)}</span></td>
-        <td>Creator: <a href="getaddressbalance.html?address=${block.miner}">${block.miner}</a><br><a href="getblockorders.html?blockheight=${block.number}">${block.totaltransactions}</a>
+        <td><span>Block: <a href="rpc/getblockinfo.html?blockheight=${block.number}">${block.number}</a><br>${getTimeAgo(block.timeend)}</span></td>
+        <td>Creator: <a href="rpc/getaddressbalance.html?address=${block.miner}">${block.miner}</a><br><a href="rpc/getblockorders.html?blockheight=${block.number}">${block.totaltransactions}</a>
         <font size="2px">Transactions in 599 seconds</font></td>
 
       </tr>
