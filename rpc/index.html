@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NOSO Explorer Lite</title>
+<style>
+      body {
+        background-color: #cceeff;
+      }
+      .container {
+        margin: auto;
+        max-width: 2048px;
+        padding: 3mm;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        background-color: white;
+        max-height: 900px;
+        overflow: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .button-container button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+    #search {
+      width: 80%;
+      max-width: 800px;
+      min-width: 300px;
+      padding: 8px;
+      font-size: 16px;
+      flex-grow: 1;
+    }
+
+    .search1-wrapper {
+      display: flex;
+    }
+
+    #search-button {
+      margin-left: 8px;
+    }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+    </style>
+</head>
+<body>
+   <div class="container" style="max-height: 900px;">
+    <div class="table-container">
+  <div class="exprow">
+
+    <form id="block-form" action="getblockinfo.html?blockheight" method="get"
+          style="display: none;"> 
+      <input id="block-search" name="blockheight" placeholder="Search Block Number" type="search"> 
+      <button type="submit">Search Block</button> 
+    </form>
+    <form id="address-form" action="getaddressbalance.html?address" method="get" style="display: none;"> 
+      <input id="address-search" name="address" placeholder="Search Address" type="search">
+      <button type="submit">Search Address</button> 
+    </form>
+    <form id="alias-form" action="getaliasbalance.html?alias" method="get" style="display: none;"> 
+      <input id="alias-search" name="address" placeholder="Search Alias" type="search"> 
+      <button type="submit">Search Alias</button> 
+    </form>
+    <form id="order-form" action="getordersinfo.html?orderid" method="get" style="display: none;"> 
+       <input id="order-search" name="orderid" placeholder="Search Order ID" type="search"> 
+      <button type="submit">Search Order</button>
+    </form>
+    <div class="search1-wrapper"> <a href="index.html"> NOSO<br>Explorer </a> &nbsp;&nbsp;
+      <input id="search" placeholder="Block, Address, OrderId, or A-Alias " type="search"> 
+     <button id="search-button" type="submit" onclick="search()">Search</button>
+    </div>
+  </div>
+  
+
+
+  <br>
+
+ <div class="grid-container">
+
+    <div class="grid-child one">
+      <table>
+        <thead>
+          <tr>
+            <th width="20px"></th>
+            <th></th>
+            <th>Latest Blocks</th>
+          </tr>
+        </thead>
+        <tbody id="block-table">
+        </tbody>
+      </table>
+<br>
+    <div class="button-container">
+      <button id="backward-btn">Previous</button>
+      <button id="forward-btn">Next</button>
+    </div>
+    </div>
+
+    <div class="grid-child two">
+           <table>
+        <thead>
+          <tr>
+            <th width="20px"></th>
+            <th></th>
+            <th>Pending Transactions</th>
+         <th></th>
+         <th></th>
+          </tr>
+        </thead>
+        <tbody id="getpendingorders">
+        </tbody>
+      </table>
+<br>
+  <div class="button-container"><button id="pendingordersbutton">More Transactions</button></div>
+    </div>
+
+</div>
+
+    </div>
+
+  </div>
+
+
+  <script src="index.js"></script>
+  <script src="getpendingorders.js"></script>
+
+
+    <script>
+      function refreshPage() {
+        if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+          location.reload();
+        }
+      }
+    </script>
+<script>
+const pendingordersbutton = document.getElementById('pendingordersbutton');
+pendingordersbutton.addEventListener('click', () => {
+  window.location.href = 'getpendingorders.html';
+});
+</script>
+  <script>
+function search() {
+  const input = document.getElementById('search').value.trim();
+  if (/^\d{1,10}$/.test(input)) {
+    // Show block form and hide other forms
+    document.getElementById('block-form').style.display = '';
+    document.getElementById('address-form').style.display = 'none';
+    document.getElementById('alias-form').style.display = 'none';
+    document.getElementById('block-search').value = input;
+    document.getElementById('block-form').submit();
+  } else if (/^A-[a-zA-Z0-9]{1,31}$/.test(input)) {
+    // Show alias form and hide other forms
+    document.getElementById('alias-form').style.display = '';
+    document.getElementById('block-form').style.display = 'none';
+    document.getElementById('address-form').style.display = 'none';
+    document.getElementById('alias-search').value = input.substring(2);
+    document.getElementById('alias-form').submit();
+  } else if (/^[a-zA-Z0-9]{1,31}$/.test(input)) {
+    // Show address form and hide other forms
+    document.getElementById('address-form').style.display = '';
+    document.getElementById('block-form').style.display = 'none';
+    document.getElementById('alias-form').style.display = 'none';
+    document.getElementById('address-search').value = input;
+    document.getElementById('address-form').submit();
+  } else {
+    // Invalid input, hide all forms except for the new order form
+    document.getElementById('block-form').style.display = 'none';
+    document.getElementById('address-form').style.display = 'none';
+    document.getElementById('alias-form').style.display = 'none';
+    document.getElementById('order-form').style.display = '';
+    document.getElementById('order-search').value = input;
+    document.getElementById('order-form').submit();
+  }
+}
+
+// Add event listener to search field to listen for "Enter" keypress
+document.getElementById('search').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    search();
+  }
+});
+</script> 
+</body>
+</html> 
