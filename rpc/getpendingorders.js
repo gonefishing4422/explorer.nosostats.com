@@ -18,14 +18,14 @@
         tableBody.innerHTML = ''; // clear existing rows
         pendings.slice(0, 23).forEach(pending => {
           const [orderType, sender, receiver, orderAmount, orderFee] = pending.split(',');
-          const senderLink = `<a href="getaddressbalance.html?address=${sender}">${sender}</a>`;
-          const receiverLink = `<a href="getaddressbalance.html?address=${receiver}">${receiver}</a>`;
+          const senderLink = `<a href="rpc/getaddressbalance.html?address=${sender}">${sender}</a>`;
+          const receiverLink = `<a href="rpc/getaddressbalance.html?address=${receiver}">${receiver}</a>`;
 	const orderAmountFormatted = (orderAmount * 0.00000001).toFixed(8);
 	const orderFeeFormatted = (orderFee * 0.00000001).toFixed(8);
 	
 	const row = `
 	  <tr>
-	    <td>${orderType}</td>
+	    <td> <img src="img/logo_clearbg.png" width="20px"> ${orderType}</td>
 	    <td>${senderLink}</td>
 	    <td>${receiverLink}</td>
 	    <td>${orderAmountFormatted}</td>
