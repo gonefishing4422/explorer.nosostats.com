@@ -4,6 +4,6 @@
 
 This deployment runs on any webserver serving html, javascript, and css. 
 
-Utilizes Noso Project Mongodb api. (to be documented soon)
+Utilizes Noso Project json-rpc.
 
 No special modules or configurations are needed for deployment.
