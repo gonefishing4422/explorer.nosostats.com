@@ -379,19 +379,15 @@ table.tablesorter thead tr th:hover {
 .styled-table td {
 	  margin-left: auto; 
 	  margin-right: auto;
-	   
-	  padding: 6px 20px; 
-	  overflow: hidden; 
+ 	  overflow: hidden;
+
 	  text-overflow: ellipsis; 
 	  word-wrap: break-all;
 	  table-layout:fixed;
-	  width:20px;
 	  overflow:hidden;
-
-
 }
-
-
+	/*  width:20px; */
+	/*  padding: 6px 20px; */
 
 .styled-table tbody tr {
     border-bottom: 1px solid black;
