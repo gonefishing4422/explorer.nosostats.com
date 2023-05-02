@@ -1,15 +1,29 @@
-fetch('https://nosostats.com:8079', {
-  method: 'POST',
-  headers: {
-    'Origin': 'https://nosostats.com'
-  },
-  body: JSON.stringify({
-    "jsonrpc": "2.0",
-    "method": "getmainnetinfo",
-    "params": [],
-    "id": 9
-  })
-})
+const apiUrls = [
+  'https://nosostats.com:8079',
+  'https://nosofish.xyz:8079'
+];
+
+let currentApiUrlIndex = 0;
+
+const getNextApiUrl = () => {
+  currentApiUrlIndex = (currentApiUrlIndex + 1) % apiUrls.length;
+  return apiUrls[currentApiUrlIndex];
+};
+
+const fetchBlocks = async (i) => {
+  const apiUrl = getNextApiUrl();
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Origin': apiUrl
+    },
+    body: JSON.stringify({
+      "jsonrpc": "2.0",
+      "method": "getblocksinfo",
+      "params": [i],
+      "id": 17
+    })
+  });
 .then(response => response.json())
 .then(data => {
   const blockInfo = data.result[0];
