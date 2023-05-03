@@ -24,45 +24,9 @@ crossorigin="anonymous">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
-    <style>
-      #orderschart {
-        font-size: 8px;
-        color: #bbb;
-        background-color: black;
-        top: 0;
-        left: 0;
-        
-        max-width: 300px; /* set maximum width */
-        min-width: 440px;
-        width: 100%; /* set initial width to 100% */
-      }
-      #orderschart svg {
-        max-width: 100%;
-      }
-      .bar {
-        fill: #fbe04d;
-      }
-
-      .axis text {
-        font-size: 8px;
-        color: gray;
-      }
-
-      /* set width to 100% when screen size is less than 600px */
-      @media (max-width: 600px) {
-        #orderschart {
-          width: 100%;
-        }
-      }
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-}
-    </style>
     <!--style-->
   </head>
-  <body onload="updateTable();" color="#222222" style="                                                                                                                                                                                              background-image: url(&quot;&quot;);">
+  <body onload="updateTable();" color="#222222" style="                                                                                                                                                                                                      background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -117,7 +81,7 @@ crossorigin="anonymous">
         </div>
         <!-- /.navbar-collapse --> </nav>
       <div id="page-wrapper">
-        <div class="row">
+        <div class="rowsearch">
           <div class="col-lg-12">
             <!-- /.Top row search --> <br>
             <div class="exprow">
@@ -154,16 +118,16 @@ crossorigin="anonymous">
         </div>
       </div>
       <div class="row"> <br>
-        <div class="grid-container">
-          <div class="grid-child one" style="min-width: 300px";>
-            <table class="styled-table">
+        <div class="my-grid-container">
+          <div class="my-grid-child" style="min-width: 300px" ;="">
+            <table class="styled-table1">
               <thead>
                 <tr>
                   <th width="80px"><br>
                   </th>
-                  <th  width="100px"><br>
+                  <th width="100px"><br>
                   </th>
-                  <th width="100px">Latest Blocks<br>
+                  <th width="200px"><font size="3">Latest Blocks</font><br>
                   </th>
                 </tr>
               </thead>
@@ -171,20 +135,18 @@ crossorigin="anonymous">
               </tbody>
             </table>
             <br>
-            <center><div class="button-container"> <button id="backward-btn">Previous</button>
-              <button id="forward-btn">Next</button> </div></center>
+            <center>
+              <div class="button-container"> <button id="backward-btn">Previous</button>
+                <button id="forward-btn">Next</button> </div>
+            </center>
           </div>
-          <div class="grid-child two">
-            <table class="styled-table">
+          <div class="my-grid-child" style="min-width: 300px" ;="">
+            <table class="styled-table1">
               <thead>
                 <tr>
-                  <th><br>
-                  </th>
-                  <th><br>
-                  </th>
-                  <th>Pending Transactions<br>
-                  </th>
-                  <th><br>
+                  <th colspan="5"><font size="3">
+                      <center>Pending Transactions</center>
+                    </font> <br>
                   </th>
                   <th><br>
                   </th>
@@ -194,8 +156,10 @@ crossorigin="anonymous">
               </tbody>
             </table>
             <br>
-            <center><div class="button-container"><button id="pendingordersbutton">More
-                Transactions</button></div></center>
+            <center>
+              <div class="button-container"><button id="pendingordersbutton">More
+                  Transactions</button></div>
+            </center>
           </div>
         </div>
       </div>
@@ -204,11 +168,11 @@ crossorigin="anonymous">
     <br>
     <div class="exprow">
       <div><br>
-        <div class="row"> <img src="img/logo_clearbg.png" alt="nosologo" title="nosologo"
+        <div class="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="img/logo_clearbg.png" alt="nosologo" title="nosologo" style="width: 15px; height: 15px;">&nbsp;;<font
 
-            style="width: 15px; height: 15px;">&nbsp;<font size="1px" color="#bbb">Powered
-            by NOSO Blockchain&nbsp; | &nbsp; Built by the NOSO Community</font>
-        </div>
+            size="1px" color="#bbb">Powered by NOSO Blockchain&nbsp; | &nbsp;
+            Built by the NOSO Community</font> </div>
       </div>
     </div>
     <!-- /.row -->
@@ -220,8 +184,8 @@ crossorigin="anonymous">
       <script src="js/bootstrap.js"></script>
       <!-- Page Specific Plugins --> </font>
     <script src="js/nosochain.js"></script>
-    <script src="rpc/index.js"></script>
-    <script src="rpc/getpendingorders.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/getpendingorders.js"></script>
     <style>
     @media only screen and (max-width: 400px) {
       tr:nth-child(n+5) {
@@ -239,7 +203,7 @@ crossorigin="anonymous">
     <script>
 const pendingordersbutton = document.getElementById('pendingordersbutton');
 pendingordersbutton.addEventListener('click', () => {
-  window.location.href = '/rpc/getpendingorders.html';
+  window.location.href = 'getpendingorders.html';
 });
 </script> <script>
 function search() {

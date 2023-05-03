@@ -1,8 +1,8 @@
     function refreshTable() {
-      fetch('https://nosostats.com:8079', {
+      fetch('http://api.nosostats.com:8078', {
         method: 'POST',
         headers: {
-          'Origin': 'https://nosostats.com'
+          'Origin': 'http://api.nosostats.com'
         },
         body: JSON.stringify({
           "jsonrpc": "2.0",

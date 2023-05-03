@@ -201,23 +201,23 @@ div {
 .toprow {
   margin: 0;
   border: 0px solid black;
-  border: 0px solid black;
     max-width:1450px;
 
 }
 
-/* Nav row */
-.row {
-  margin: 0;
-  border: 0px solid black;
-  max-width:1300x;
 
-}
 /* Table Nav row */
 .row {
   margin: 0;
   border: 0px solid black;
   max-width:1300px;
+
+}
+/* Table Nav row */
+.rowsearch {
+  margin: 0;
+  border: 0px solid black;
+  max-width:1120px;
 
 }
 
@@ -270,7 +270,7 @@ div {
   
 }
 .announcement-text2 {
-  font-size: 12px;
+ 
   margin: 0;
    color: darkgrey;
    display: flex;
@@ -391,7 +391,7 @@ table.tablesorter thead tr th:hover {
 
 .styled-table tbody tr {
     border-bottom: 1px solid black;
-    color: white
+    color: white;
 }
 
 .styled-table tbody tr:nth-of-type(even) {
@@ -404,9 +404,85 @@ table.tablesorter thead tr th:hover {
     border-bottom: 2px solid #222222;
 }
 .styled-table tbody tr.active-row {
+    -weight: bold;
+    color: #fbe04d;
+}
+
+.styled-table1 {
+    background-color: black;
+    color: #fbe04d;
+        border-spacing: 0px;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height:100%;
+
+}
+
+.styled-table1 thead tr {
+    background-color: black;
+    color: #fbe04d;
+
+        border-spacing: 0px;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+
+}
+
+.styled-table1 th,
+.styled-table1 td {
+
+	  margin-left: auto; 
+	  margin-right: auto;
+ 	  overflow: hidden;
+          font-size: 12px;
+	  text-overflow: ellipsis; 
+	  word-wrap: break-all;
+	  table-layout:fixed;
+	  overflow:hidden;
+}
+	/*  width:20px; */
+	/*  padding: 6px 20px; */
+
+	
+/*  explorer page table */
+.styled-table1 tbody tr {
+    border-bottom: 1px solid #222222;
+    color: lightgrey;
+}
+
+.styled-table1 tbody tr:nth-of-type(even) {
+    background-color: black;
+    color: lightgrey;
+    padding: 6px 20px; 
+}
+
+.styled-table1 tbody tr:last-of-type {
+    border-bottom: 2px solid #222222;
+}
+.styled-table1 tbody tr.active-row {
     font-weight: bold;
     color: #fbe04d;
 }
+  .my-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 60px;
+  }
+
+  .my-grid-child {
+    width: 100%;
+  }
+
+  @media (max-width: 980px) {
+    .my-grid-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
 /*  .styled-table automatic resizing based on screensize*/
 
 @media screen and (max-width: 600px) {

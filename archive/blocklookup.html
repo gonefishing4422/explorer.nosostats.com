@@ -2,16 +2,12 @@
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    
+    <meta http-equiv="refresh" content="600">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Noso Explorer</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
 
 integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
@@ -19,10 +15,8 @@ integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6h
 crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/blocklookup.js"></script>
     <!---chart-->
-    <script src="js/chartpopw.js"></script>
-    <script src="js/chartpool.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <!-- Add custom CSS here -->
@@ -32,8 +26,9 @@ crossorigin="anonymous">
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                background-image: url(&quot;&quot;);">
-    <div id="wrapper"> <!-- Sidebar -->
+  <body color="#222222" style="                                                                                                                                                                         background-image: url(&quot;&quot;);">
+    <div id="wrapper">
+      <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header"> <button type="button" class="navbar-toggle"
@@ -49,13 +44,13 @@ crossorigin="anonymous">
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="index.html"><i class="fa fa-dashboard"></i> NosoStats</a></li>
-            <li><a href="explorer.html"><i class="fa fa-search"></i> Explorer</a></li>
+            <li class="active"><a href="explorer.html"><i class="fa fa-search"></i>
+                Explorer</a></li>
             <!--  <li><a href="coins.html"> Coin Distribution</a></li>
             <li><a href="addresses.html"> Top Addresses</a></li> -->
             <li><a href="masternodes.html"><i class="fa fa-globe"></i>
                 Masternodes</a></li>
-            <li class="active"><a href="earn.html"><i class="fa fa-wrench"></i>
-                PoPW </a></li>
+            <li><a href="earn.html"><i class="fa fa-wrench"></i> PoPW </a></li>
             <!-- <li><a href="charts.html">Charts</a></li> -->
             <li><a href="market.html"> <i class="fa fa-money"></i> Market</a></li>
           </ul>
@@ -67,9 +62,10 @@ crossorigin="anonymous">
                     src="img/twitter_bird.png" style="width: 20px; height: 16px;"
 
                     alt="Noso on Twitter"></a> </li>
-              <li><a href="https://discord.gg/PktseKHJH5" target="_blank"> <img
+              <li><a href="https://discord.gg/weed5ePmfY" target="_blank">
+                  <img src="img/discord.png" style="width: 24px; height: 22px;"
 
-                    src="img/discord.png" style="width: 24px; height: 22px;" alt="Noso on Discord"></a></li>
+                    alt="Noso on Discord"></a></li>
               <li><a href="https://t.me/nosocoin" target="_blank"> <img src="img/telegram.png"
 
                     style="width: 24px; height: 23px;" alt="Noso on telegram"></a></li>
@@ -86,9 +82,8 @@ crossorigin="anonymous">
         </div>
         <!-- /.navbar-collapse --> </nav>
       <div id="page-wrapper">
-        <div class="row">
-          <div class="col-lg-12">
-            <!-- /.Top row search --> <br>
+        <div class="col-lg-12">
+          <div class="row">
             <div class="exprow">
               <form id="block-form" action="blocklookup.html?blocknumber" method="get"
 
@@ -118,53 +113,26 @@ crossorigin="anonymous">
                   type="search"> <button type="submit1" onclick="search()"></button>
               </div>
               <!-- Results will be displayed on Explorer page --> </div>
-            <div class="row">
-              <div class="contentcontainer">
-                <div class="contentchart"><br>
-                  <p class="col-xs-6">PoPW PARTICIPATION</p>
-                  <br>
-                  <br>
-                  <div id="chartdiv2">
-                    <div id="chartpopw"></div>
-                  </div>
-                </div>
-                <div class="popwchart">Box 2</div>
-              </div>
-              <div class="col-lg-12">
-                <!-- /.place Search here -->
-                <div>
-                  <div class="col-lg-4">
-                    <div class="panel panel-primary">
-                      <div class="panel-body">
-                        <!-- /.row -->
-                        <!-- /.row --> </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div>
-                    <p class="col-xs-6">PoPW POOLS</p>
-                  </div>
-                  <div>&nbsp;</div>
-                  <br>
-                  <table id="poolStats" class="styled-table">
-                    <thead>
-                      <tr>
-                        <th class="priority-1">Pool Name</th>
-                        <th class="priority-2">Last Found</th>
-                        <th class="priority-3">Participants</th>
-                        <th class="priority-4">Pool Fee %</th>
-                        <th class="priority-5">PoP Hash</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+            <!-- / .Multi Search form -->
+            <!-- / .Hidden block search-form --> <br>
+            <div class="hidden">
+              <form id="block-number-form"> <input id="block-number-input" name="blocknumber"
+
+                  required="" placeholder="Search Block Number" type="hidden"> <button
+
+                  type="submit">Search</button> </form>
             </div>
-            <!-- /.row --> </div>
-          <br>
+            <div> <button style="background-color:black; border-color:black; color:#3d8cc8"
+
+                id="backButton">Previous Block</button> <button button="" style="background-color:black; border-color:black; color:#3d8cc8"
+
+                id="forwardButton">Next Block</button> </div>
+            <!-- / .Hidden block search-form --> <br>
+            <div id="block-number-results" class="exprow">
+              <!-- Results will be displayed here --> </div>
+          </div>
+        </div>
+        <div><br>
           <br>
           <div class="exprow">
             <div>
@@ -176,37 +144,48 @@ crossorigin="anonymous">
                   &nbsp; Built by the NOSO Community</font> </div>
             </div>
           </div>
+          <br>
         </div>
       </div>
-      <!-- /.row --> </div>
-    <font size="2">
-      <!-- /#page-wrapper -->
-      <!-- /#wrapper -->
-      <!-- JavaScript -->
-      <script src="js/jquery-1.10.2.js"></script>
-      <script src="js/bootstrap.js"></script>
-      <script>
-    const url = "https://nosostats2.nosofish.xyz:49443/api/poolStatsV2";
-    const tableBody = document.querySelector("#poolStats tbody");
+      <!-- /.row -->
+      <!-- /.row --> <font size="2">
+        <!-- /#page-wrapper -->
+        <!-- /#wrapper -->
+        <!-- JavaScript -->
+        <!--scripts for navbar hamburger below-->
+        <script src="js/jquery-1.10.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <!--scripts for navbar hamburger above-->
+        <!-- Page Specific Plugins --> </font> </div>
+    <script>
+  // Get the current block number from the URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentBlockNumber = Number(urlParams.get('blocknumber'));
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        data.forEach(pool => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td class="priority-1">${pool.pool}</td>
-            <td class="priority-2">${pool.LastFound}</td>
-            <td class="priority-3">${pool.Miners}</td>
-            <td class="priority-4">${pool.PoolFee}</td>
-            <td class="priority-5">${pool.PoolHash}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      })
-      .catch(error => console.error(error));
-  </script>
-      <script>
+  // Add click event listener to the back button
+  const backButton = document.getElementById('backButton');
+  backButton.addEventListener('click', () => {
+    currentBlockNumber--;
+    window.location.href = `blocklookup.html?blocknumber=${currentBlockNumber}`;
+  });
+
+  // Add click event listener to the forward button
+  const forwardButton = document.getElementById('forwardButton');
+  forwardButton.addEventListener('click', () => {
+    currentBlockNumber++;
+    window.location.href = `blocklookup.html?blocknumber=${currentBlockNumber}`;
+  });
+</script> <script>
+		// extract uri parameter
+		const params = new URLSearchParams(window.location.search);
+		const uriString = params.get('uristring');
+
+		if (uriString !== null) {
+			$('#block-number-input').val(uriString);
+			$('#block-number-form').submit();
+		}
+	</script>
+    <script>
 function search() {
   const input = document.getElementById('search').value.trim();
 if (/^\d{1,10}$/.test(input)) {
@@ -248,6 +227,6 @@ document.getElementById('search').addEventListener('keypress', function (e) {
     search();
   }
 });
-</script> <!-- Page Specific Plugins --> </font>
+</script>
   </body>
 </html>
