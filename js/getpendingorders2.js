@@ -25,11 +25,9 @@
 	
 	const row = `
 	  <tr>
-	    <td width="50px">${orderType}</td>
-	    <td width="300px"><b>Sender</b>&nbsp;&nbsp;&nbsp;${senderLink}</td>
-	    <td width="300px"><b>Receiver</b>&nbsp;&nbsp;&nbsp;${receiverLink}</td>
-	    <td width="120px"><b>Sent</b>&nbsp;&nbsp;&nbsp;${orderAmountFormatted}</td>
-	    <td ><b>Fee<b>&nbsp;&nbsp;&nbsp;${orderFeeFormatted}</td>
+	    <td width="80px">&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/logo_clearbg.png" width="15px">&nbsp;${orderType}</td>
+	    <td width="300px"><span>Sender&nbsp;&nbsp;${senderLink}<br>Receiver&nbsp;&nbsp;${receiverLink}</span></td>
+	    <td><span><b>Sent</b>&nbsp;&nbsp;${orderAmountFormatted}<br><b>Fee</b>&nbsp;&nbsp;${orderFeeFormatted}</span></td>
 	  </tr>
 	`;
           tableBody.insertAdjacentHTML('beforeend', row);

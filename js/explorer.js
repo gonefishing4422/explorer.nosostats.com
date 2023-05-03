@@ -61,20 +61,20 @@ fetch('https://api.nosostats.com:8078', {
 
  const fetchBlocksLoop = async (direction) => {
 if (direction === 'backward') {
-if (startBlock > 15) {
-startBlock = startBlock - 15;
+if (startBlock > 5) {
+startBlock = startBlock - 5;
 } else {
 startBlock = 1;
 }
 } else {
-if (startBlock + 15 <= blockInfo.lastblock) {
-startBlock = startBlock + 15;
+if (startBlock + 5 <= blockInfo.lastblock) {
+startBlock = startBlock + 5;
 } else {
 startBlock = blockInfo.lastblock;
 }
 }
 const blocks = [];
-for (let i = startBlock; i > startBlock - 15; i--) {
+for (let i = startBlock; i > startBlock - 5; i--) {
 if (i <= blockInfo.lastblock) { // Check if block number is valid
 blocks.push(fetchBlocks(i));
 }
@@ -91,6 +91,6 @@ document.getElementById('forward-btn').addEventListener('click', () => {
 fetchBlocksLoop('forward');
 });
 
-fetchBlocksLoop(); // Fetch the first 10 blocks
+fetchBlocksLoop(); // Fetch the first 5 blocks
 })
 .catch(error => console.error(error));

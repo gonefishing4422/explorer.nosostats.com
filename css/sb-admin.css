@@ -470,7 +470,7 @@ table.tablesorter thead tr th:hover {
   .my-grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 60px;
+    grid-gap: 100px;
   }
 
   .my-grid-child {
@@ -482,6 +482,27 @@ table.tablesorter thead tr th:hover {
       grid-template-columns: 1fr;
     }
   }
+
+.button-container {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+.button-container button {
+margin: 0 10px;
+color: #fbe04d;
+padding: 10px 20px;
+background-color: #222222;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+font-size: 16px;
+font-weight: bold;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 
 /*  .styled-table automatic resizing based on screensize*/
 

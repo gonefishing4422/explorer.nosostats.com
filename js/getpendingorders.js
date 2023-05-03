@@ -16,7 +16,7 @@
         const pendings = data.result[0].pendings;
         const tableBody = document.getElementById('getpendingorders');
         tableBody.innerHTML = ''; // clear existing rows
-        pendings.slice(0, 23).forEach(pending => {
+        pendings.slice(0, 5).forEach(pending => {
           const [orderType, sender, receiver, orderAmount, orderFee] = pending.split(',');
           const senderLink = `<a href="rpc/getaddressbalance.html?address=${sender}">${sender}</a>`;
           const receiverLink = `<a href="rpc/getaddressbalance.html?address=${receiver}">${receiver}</a>`;
