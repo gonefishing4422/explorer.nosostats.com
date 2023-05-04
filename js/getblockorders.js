@@ -105,6 +105,9 @@ const valueCell = row.insertCell();
 labelCell.style.width = "80px";
 valueCell.style.width = "220px";
 labelCell.innerHTML = data.label;
+if (data.label === "Order ID") {
+    labelCell.style.color = "#fbe04d";
+  }
 valueCell.innerHTML = data.value;
   });
 })

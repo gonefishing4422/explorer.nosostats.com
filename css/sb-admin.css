@@ -135,13 +135,13 @@ div {
 .panel-info {
   margin: 0;
   background-color: black;
-  border: 5px solid black;
+  border: 1px solid #222222;
 
 }
 .panel-head-tiles {
   margin: 0;
   padding: 10px;
-  background-color: #222222;
+  background-color: black;
   border: 0px solid darkgrey;
 
 }
@@ -149,7 +149,7 @@ div {
 .panel-head-tiles2 {
   margin: 0;
   padding: 2.5px;
-  background-color: #222222;
+  background-color: black;
   border: 0px solid darkgrey;
 
 }
@@ -168,8 +168,8 @@ div {
 .panel-footer {
   margin: 0;
   padding: 10px;
-  background-color: #222222;
-  border: 0px solid darkgrey;
+  background-color: black;
+  border: 1px solid #222222;
 
 }
 /* Nav Panel circle arrows */
@@ -211,6 +211,12 @@ div {
   margin: 0;
   border: 0px solid black;
   max-width:1300px;
+
+}
+.row2 {
+  margin: 0;
+  border: 0px solid black;
+  max-width:1150px;
 
 }
 /* Table Nav row */
