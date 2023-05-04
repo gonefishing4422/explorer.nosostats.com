@@ -2,10 +2,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const blockHeight = urlParams.get('blockheight');
 console.log(blockHeight); // log block height from URI
 
-fetch('http//api.nosostats.com:8078', {
+fetch('https://nosostats.com:8079', {
   method: 'POST',
   headers: {
-    'Origin': 'http://api.nosostats.com'
+    'Origin': 'https://nosostats.com'
   },
   body: JSON.stringify({
     "jsonrpc": "2.0",
@@ -31,16 +31,16 @@ fetch('http//api.nosostats.com:8078', {
 
   // Create an array of objects containing the table data
   const tableData = [
-    { label: "Valid Block", value: result.valid },
+ //   { label: "Valid Block", value: result.valid },
     { label: "Block Height", value: `<a href="getblockinfo.html?blockheight=${result.number}">${result.number}</a>` },
-    { label: "Start Time", value: result.timestart },
-    { label: "End Time", value: result.timeend },
-    { label: "Time Total", value: result.timetotal },
+    { label: "Start Time", value: new Date(result.timestart * 1000).toLocaleString() },
+    { label: "End Time", value: new Date(result.timeend * 1000).toLocaleString() },
+//    { label: "Time Total", value: result.timetotal },
     { label: "Last 20", value: result.last20 },
 // { label: "Total Transactions", value: result.totaltransactions },
     { label: "Total Transactions", value: `<a href="getblockorders.html?blockheight=${result.number}">${result.totaltransactions}</a>` },
-    { label: "Difficulty", value: result.difficulty },
-    { label: "Next Difficulty", value: result.nextdifficult },    
+//    { label: "Difficulty", value: result.difficulty },
+//    { label: "Next Difficulty", value: result.nextdifficult },    
     { label: "Last Block Hash", value: result.lastblockhash },    
     { label: "Target", value: result.target },
     { label: "Solution", value: result.solution },

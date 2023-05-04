@@ -366,7 +366,7 @@ table.tablesorter thead tr th:hover {
 
 .styled-table thead tr {
     background-color: #222222;
-    color: #fbe04d;
+    color: white;
         border-spacing: 0px;
         table-layout: fixed;
         margin-left: auto;
@@ -422,8 +422,8 @@ table.tablesorter thead tr th:hover {
 
 .styled-table1 thead tr {
     background-color: black;
-    color: #fbe04d;
-
+    color: white;
+  border-bottom: 2px solid #222222;
         border-spacing: 0px;
         table-layout: fixed;
         margin-left: auto;
@@ -502,7 +502,86 @@ font-size: 16px;
 font-weight: bold;
 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
+/*  explorer orders page table */
+.styled-table2 {
+    background-color: black;
+    color: #fbe04d;
+        border-spacing: 0px;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        height:100%;
 
+}
+
+.styled-table2 thead tr {
+    background-color: black;
+    color: white;
+  border-bottom: 1px solid #222222;
+        border-spacing: 0px;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+
+}
+
+.styled-table2 th,
+.styled-table2 td {
+	  margin-left: auto; 
+	  margin-right: auto;
+ 	  overflow: hidden;
+          font-size: 12px;
+	  text-overflow: ellipsis; 
+	  word-wrap: break-all;
+	  table-layout:fixed;
+	  overflow:hidden;
+}
+	/*  width:20px; */
+	/*  padding: 6px 20px; */
+
+	
+
+.styled-table2 tbody tr {
+    border-bottom: 1px solid #222222;
+    color: lightgrey;
+}
+
+.styled-table2 tbody tr:nth-of-type(even) {
+    background-color: black;
+    color: lightgrey;
+    padding: 6px 20px; 
+}
+
+.styled-table2 tbody tr:last-of-type {
+    border-bottom: 2px solid #222222;
+}
+.styled-table2 tbody tr.active-row {
+    font-weight: bold;
+    color: #fbe04d;
+}
+
+/*block search */
+.button-container1 {
+display: flex;
+justify-content: left;
+align-items: center;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+.button-container1 button {
+margin: 0 10px;
+color: #fbe04d;
+padding: 10px 20px;
+background-color: #222222;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+font-size: 16px;
+font-weight: bold;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
 
 /*  .styled-table automatic resizing based on screensize*/
 

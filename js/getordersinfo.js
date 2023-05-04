@@ -34,7 +34,7 @@ fetch('https://nosostats.com:8079', {
 
   // Create an array of objects containing the table data
   const tableData = [
-    { label: "Valid", value: data.result[0].valid },
+    { label: "Order valid (true or false)", value: data.result[0].valid },
     { label: "Order ID", value: `<a href="getordersinfo.html?orderid=${order.orderid}">${order.orderid}</a>` },
     { label: "Timestamp", value: new Date(order.timestamp * 1000).toLocaleString() },
     { label: "Block", value: `<a href="getblockinfo.html?blockheight=${order.block}">${order.block}</a>` },

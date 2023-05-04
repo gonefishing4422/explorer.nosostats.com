@@ -2,10 +2,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 const blockHeight = urlParams.get('blockheight');
 
-fetch('http://api.nosostats.com:8078', {
+fetch('https://api.nosostats.com:8078', {
   method: 'POST',
   headers: {
-    'Origin': 'http://api.nosostats.com'
+    'Origin': 'https://api.nosostats.com'
   },
   body: JSON.stringify({
     "jsonrpc": "2.0",
@@ -98,12 +98,14 @@ fetch('http://api.nosostats.com:8078', {
   const table = document.getElementById("orders-table");
 
   // Create a new row in the table for each item in the tableData array
-  tableData.forEach(data => {
-    const row = table.insertRow();
-    const labelCell = row.insertCell();
-    const valueCell = row.insertCell();
-    labelCell.innerHTML = data.label;
-    valueCell.innerHTML = data.value;
+tableData.forEach(data => {
+const row = table.insertRow();
+const labelCell = row.insertCell();
+const valueCell = row.insertCell();
+labelCell.style.width = "80px";
+valueCell.style.width = "220px";
+labelCell.innerHTML = data.label;
+valueCell.innerHTML = data.value;
   });
 })
 .catch(error => console.error(error));

@@ -2,10 +2,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 const address = urlParams.get('address');
 
-fetch('http://api.nosostats.com:8078', {
+fetch('https://api.nosostats.com:8078', {
   method: 'POST',
   headers: {
-    'Origin': 'http://api.nosostats.com'
+    'Origin': 'https://api.nosostats.com'
   },
   body: JSON.stringify({
     "jsonrpc": "2.0",
@@ -31,12 +31,12 @@ fetch('http://api.nosostats.com:8078', {
 
   // Create an array of objects containing the table data
   const tableData = [
-    { label: "Valid", value: result.valid },
-    { label: "Address", value: `<a href="addresshistory.html?addresshistory=${result.address}">${result.address}</a>` },
-    { label: "Alias", value: result.alias },
-    { label: "Balance", value: result.balance * 0.00000001 },
-    { label: "Incoming", value: result.incoming * 0.00000001 },
-    { label: "Outgoing", value: result.outgoing * 0.00000001 }
+    { label: "Exists in Blockchain", value: result.valid },
+    { label: "Noso Address", value: result.address},
+    { label: "Address Alias", value: result.alias },
+    { label: "Current Balance", value: result.balance * 0.00000001 },
+    { label: "Incoming Noso in Current Block", value: result.incoming * 0.00000001 },
+    { label: "Outgoing Noso in Current Block", value: result.outgoing * 0.00000001 }
   ];
 
   // Get a reference to the table element in your HTML
