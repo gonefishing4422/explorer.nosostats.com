@@ -412,7 +412,7 @@ crossorigin="anonymous">
       <script src="js/explorer.js"></script>
       <script src="js/getpendingorders.js"></script>
       <script src="js/getmainnetinfo.js"></script>
-      <script src="js/gm1.js"></script>
+     <!-- <script src="js/gm1.js"></script> -->
       <!--mongo api -->
       <script src="js/countdown.js"></script>      
       <script src="js/nodelockfunds.js"></script>
