@@ -96,22 +96,3 @@ fetchBlocksLoop('forward');
 fetchBlocksLoop(); // Fetch the first 5 blocks
 })
 .catch(error => console.error(error));
-
-
-function startCountdown(timestamp) {
-  clearInterval(countdownInterval);
-  const endTime = new Date((timestamp + 600) * 1000); // add 10 minutes (600 seconds) to the timestamp
-  countdownInterval = setInterval(() => {
-    const now = new Date().getTime();
-    const distance = endTime - now;
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById('countdown').innerHTML = `${minutes}m ${seconds}s`;
-    if (distance < 0) {
-      clearInterval(countdownInterval);
-      document.getElementById('countdown').innerHTML = 'EXPIRED';
-    }
-  }, 1000);
-}
-const blockInfo = data.result[0];
-startCountdown(blockInfo.timeend);
