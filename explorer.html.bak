@@ -25,7 +25,7 @@ crossorigin="anonymous">
     <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
     <!--style-->
   </head>
-  <body onload="loadNodeIpAddressCount();" color="#222222" style="                       background-image: url();">
+  <body onload="loadNodeIpAddressCount();" color="#222222" style="                          background-image: url();">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -243,7 +243,7 @@ crossorigin="anonymous">
                   <div class="row">
                     <div class="col-xs-6">
                       <p class="announcement-heading" style="margin-left: 26px; width: 164px;">
-                        <span id="nodeIpAddressCount">0</span> <br>
+                        <span id="node-count">0</span> <br>
                         <font class="announcement-subheading"></font></p>
                       <p class="announcement-text" style="width: 176px;"><font color="white">
                         </font>&nbsp; Active Masternodes<font size="2"></font></p>
@@ -421,6 +421,7 @@ crossorigin="anonymous">
       <script src="js/explorer.js"></script>
       <script src="js/getpendingorders.js"></script>
       <script src="js/getmainnetinfo.js"></script>
+      <script src="js/getblockmns2.js"></script>
       <!-- <script src="js/gm1.js"></script> -->
       <!--mongo api -->
       <script src="js/countdown.js"></script>
@@ -491,5 +492,6 @@ document.getElementById('search').addEventListener('keypress', function (e) {
   }
 });
 </script> </div>
+    
   </body>
 </html>

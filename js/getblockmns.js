@@ -1,48 +1,93 @@
 const urlParams = new URLSearchParams(window.location.search);
-const blockHeight = urlParams.get('blockheight');
+let blockHeight = urlParams.get('blockheight');
 
-fetch('http://api.nosostats.com:8079', {
+fetch('https://api.nosostats.com:8078', {
   method: 'POST',
   headers: {
-    'Origin': 'http://api.nosostats.com'
+    'Origin': 'https://api.nosostats.com'
   },
   body: JSON.stringify({
     "jsonrpc": "2.0",
-    "method": "getblockmns",
-    "params": [blockHeight],
-    "id": 20
+    "method": "getmainnetinfo",
+    "params": [],
+    "id": 9
   })
-}).then(response => response.json())
+})
+  .then(response => response.json())
   .then(data => {
-    const table = document.createElement('table');
-    const headerRow = document.createElement('tr');
-    const headers = ['Valid', 'Block', 'Count', 'Reward', 'Total', 'Addresses'];
+    const currentHeight = data.result[0].lastblock;
+    if (!blockHeight) {
+      blockHeight = currentHeight;
+      urlParams.set('blockheight', blockHeight);
+      const newUrl = `${window.location.origin}${window.location.pathname}?${urlParams.toString()}`;
+      window.history.replaceState(null, '', newUrl);
+    }
 
-    headers.forEach(header => {
-      const th = document.createElement('th');
-      th.textContent = header;
-      headerRow.appendChild(th);
-    });
+    const tableContainer = document.getElementById('mns-rewards-table');
+    if (tableContainer) {
+      fetch('https://nosostats.com:8079', {
+        method: 'POST',
+        headers: {
+          'Origin': 'https://nosostats.com'
+        },
+        body: JSON.stringify({
+          "jsonrpc": "2.0",
+          "method": "getblockmns",
+          "params": [blockHeight],
+          "id": 20
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          const table = document.createElement('table');
+          table.id = 'blockmns-table';
+          table.classList.add('styled-table2');
+          table.style.width = '600px'; // Set table width
+          table.style.float = 'left'; // Align table to the left
+          const headerRow = document.createElement('tr');
+          const headers = ['Address', 'Reward'];
 
-    table.appendChild(headerRow);
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
 
-    data.result.forEach(result => {
-      const row = document.createElement('tr');
+          table.appendChild(headerRow);
 
-      Object.keys(result).forEach(key => {
-        const cell = document.createElement('td');
-        let value = result[key];
+          data.result.forEach(result => {
+            const addresses = result.addresses.split(',');
 
-        if (key === 'reward' || key === 'total') {
-          value = (value * 0.00000001).toFixed(8);
-        }
+            addresses.forEach((address, index) => {
+              const row = document.createElement('tr');
 
-        cell.textContent = value;
-        row.appendChild(cell);
-      });
+              const addressCell = document.createElement('td');
+              const addressLink = document.createElement('a');
+              addressLink.href = `getaddressbalance.html?address=${address}`;
+              addressLink.textContent = address;
+              addressCell.appendChild(addressLink);
+              row.appendChild(addressCell);
 
-      table.appendChild(row);
-    });
+              const rewardCell = document.createElement('td');
+              rewardCell.textContent = (result.reward * 0.00000001).toFixed(8);
+              row.appendChild(rewardCell);
 
-    document.body.appendChild(table);
-  });
+              table.appendChild(row);
+            });
+          });
+
+          tableContainer.innerHTML = ''; // Clear the table container
+          tableContainer.appendChild(table);
+
+          // Set IDs for individual elements
+          document.getElementById('total-reward').textContent = (data.result[0].total * 0.00000001).toFixed(8);
+          document.getElementById('node-count').textContent = data.result[0].count;
+          document.getElementById('node-reward').textContent = (data.result[0].reward * 0.00000001).toFixed(8);
+          document.getElementById('node-24hr-reward').textContent = (data.result[0].reward * 0.00000001 * 144).toFixed(8);
+          document.getElementById('blockheight').textContent = blockHeight;
+        })
+        .catch(error => console.error(error));
+    }
+  })
+  .catch(error => console.error(error));
+``
