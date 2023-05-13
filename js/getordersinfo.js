@@ -29,8 +29,8 @@ fetch('https://nosostats.com:8079', {
   const order = data.result[0].order;
 
   // Multiply the amount and fee fields by 0.0000001
-  order.amount *= 0.0000001;
-  order.fee *= 0.0000001;
+  order.amount *= 0.00000001;
+  order.fee *= 0.00000001;
 
   // Create an array of objects containing the table data
   const tableData = [
