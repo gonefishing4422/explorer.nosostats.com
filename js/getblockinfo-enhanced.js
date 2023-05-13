@@ -41,8 +41,8 @@ fetch('https://nosostats.com:8079', {
       { label: "Solution", value: result.solution },
       { label: "Hash", value: result.hash },
       { label: "Block Creator", value: `<a href="getaddressbalance.html?address=${result.miner}">${result.miner}</a>` },
-      { label: "Coins Minted", value: (result.reward * 0.00000001).toFixed(8) },
-      { label: "Fees Paid", value: (result.feespaid * 0.00000001).toFixed(8) }
+      { label: "Coins Minted", value: result.reward },
+      { label: "Fees Paid", value: result.feespaid }
     ];
 
     // Get a reference to the table element in your HTML
@@ -68,5 +68,8 @@ fetch('https://nosostats.com:8079', {
       labelCell.innerHTML = data.label;
       valueCell.innerHTML = data.value;
     });
+
+    document.getElementById("output").innerHTML = output;
+
   })
   .catch(error => console.error(error));
