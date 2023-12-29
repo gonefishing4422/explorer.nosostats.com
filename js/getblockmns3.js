@@ -1,3 +1,6 @@
+/ Initialize Chart.js
+const Chart = require('chart.js');
+
 // Initial fetch to get the currentHeight
 fetch('https://api.nosostats.com:8078', {
   method: 'POST',
@@ -101,14 +104,51 @@ function fetchDataForBlockHeight(blockHeight) {
       document.getElementById('node-reward').textContent = (data.result[0].reward * 0.00000001).toFixed(8);
       document.getElementById('node-24hr-reward').textContent = (data.result[0].reward * 0.00000001 * 144).toFixed(8);
       document.getElementById('node-7day-reward').textContent = (data.result[0].reward * 0.00000001 * 1008).toFixed(8);
-      document.getElementById('node-30day-reward').textContent = (data.result[0].reward * 0.00000001 * 4320).toFixed(8);            
-      document.getElementById('blockheight').textContent = blockHeight;
-      const nodeCount = data.result[0].count;
-      document.getElementById('node-funds-locked').textContent = parseInt(nodeCount * 10500);
+      document.getElementById('node-30day-reward').textContent = (data.result[0].reward * 0.00000001 * 4320).toFixed(8);
+      document.getElementById('node-funds-locked').textContent = parseInt(data.result[0].count * 10500);
 
-      
+      // Call the function to create the chart
+      createNodeCountChart(blockHeight);
     })
     .catch(error => console.error(error));
+}
+
+// Function to create the chart
+function createNodeCountChart(blockHeight) {
+  const chartLabels = [];
+  const chartNodeCounts = [];
+
+  // Fetch data for the chart for 14 block heights
+  for (let i = blockHeight; i >= Math.max(1, blockHeight - 13); i--) {
+    chartLabels.push(i);
+    // Replace this with actual node count data for each block height
+    // For now, using a placeholder value (replace it with actual data)
+    chartNodeCounts.push(i * 1000);
+  }
+
+  const ctx = document.getElementById('nodeCountChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartLabels,
+      datasets: [
+        {
+          label: 'Node Count',
+          data: chartNodeCounts,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 }
 
 // Handle the "Back" button click

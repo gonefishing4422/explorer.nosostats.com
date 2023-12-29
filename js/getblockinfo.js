@@ -2,10 +2,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const blockHeight = urlParams.get('blockheight');
 console.log(blockHeight); // log block height from URI
 
-fetch('https://nosostats.com:8079', {
+fetch('https://api.nosostats.com:8078', {
   method: 'POST',
   headers: {
-    'Origin': 'https://nosostats.com'
+    'Origin': 'https://api.nosostats.com'
   },
   body: JSON.stringify({
     "jsonrpc": "2.0",
@@ -40,7 +40,7 @@ fetch('https://nosostats.com:8079', {
       { label: "Target", value: result.target },
       { label: "Solution", value: result.solution },
       { label: "Hash", value: result.hash },
-      { label: "Block Creator", value: `<a href="getaddressbalance.html?address=${result.miner}">${result.miner}</a>` },
+      { label: "Noso Mint Address", value: `<a href="getaddressbalance.html?address=${result.miner}">${result.miner}</a>` },
       { label: "Coins Minted", value: (result.reward * 0.00000001).toFixed(8) },
       { label: "Fees Paid", value: (result.feespaid * 0.00000001).toFixed(8) }
     ];

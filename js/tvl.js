@@ -1,33 +1,29 @@
-    document.addEventListener('DOMContentLoaded', function() {
-      const nodeCountElement = document.getElementById('node-count');
-      const mnCoinsLockedElement = document.getElementById('mncoinslocked');
-      const totalValueLockedElement = document.getElementById('totalvaluelocked');
-      const tvlPercentageElement = document.getElementById('tvlpercentage');
-      const nosomcapElement = document.getElementById('nosomcap');
-  const circulatingElement = document.getElementById('circulating');
+    document.addEventListener('DOMContentLoaded', async function() {
+      try {
+        const livecoinWatchData = await fetchLivecoinWatchData();
+        if (livecoinWatchData) {
+          const nosoUsdtLastPrice = parseFloat(livecoinWatchData.rate).toFixed(2);
 
-      // Fetch current block height
-      fetch('https://api.nosostats.com:8078', {
-        method: 'POST',
-        headers: {
-          'Origin': 'https://api.nosostats.com'
-        },
-        body: JSON.stringify({
-          "jsonrpc": "2.0",
-          "method": "getmainnetinfo",
-          "params": [],
-          "id": 9
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          const currentHeight = data.result[0].lastblock;
-
-          // Fetch node count for the current block height
-          fetch('https://nosostats.com:8079', {
+          const responseHeight = await fetch('https://api.nosostats.com:8078', {
             method: 'POST',
             headers: {
-              'Origin': 'https://nosostats.com'
+              'Origin': 'https://api.nosostats.com'
+            },
+            body: JSON.stringify({
+              "jsonrpc": "2.0",
+              "method": "getmainnetinfo",
+              "params": [],
+              "id": 9
+            })
+          });
+
+          const dataHeight = await responseHeight.json();
+          const currentHeight = dataHeight.result[0].lastblock;
+
+          const responseNodeCount = await fetch('https://api.nosostats.com:8078', {
+            method: 'POST',
+            headers: {
+              'Origin': 'https://api.nosostats.com'
             },
             body: JSON.stringify({
               "jsonrpc": "2.0",
@@ -35,63 +31,89 @@
               "params": [currentHeight],
               "id": 10
             })
-          })
-            .then(response => response.json())
-            .then(data => {
-              const nodeCount = data.result[0].count; // Use 'count' property to get the node count
-              nodeCountElement.textContent = nodeCount;
+          });
 
-              // Calculate locked MN coins
-              const mnCoinsLocked = nodeCount * 10500;
-              mnCoinsLockedElement.textContent = (mnCoinsLocked / 1000000).toFixed(2) + "M /";
+          const dataNodeCount = await responseNodeCount.json();
+          const nodeCount = dataNodeCount.result[0].count;
 
-              // Fetch current supply
-              fetch('https://nosostats.com:8079', {
-                method: 'POST',
-                headers: {
-                  'Origin': 'https://nosostats.com'
-                },
-                body: JSON.stringify({
-                  "jsonrpc": "2.0",
-                  "method": "getmainnetinfo",
-                  "params": [],
-                  "id": 11
-                })
-              })
-                .then(response => response.json())
-                .then(data => {
-                  const currentSupply = data.result[0].supply;
+          const mnCoinsLocked = nodeCount * 10500;
+          const nodeReward = dataNodeCount.result[0].reward * 0.00000001;
 
-
-
-                  // Fetch last price
-                  fetch('https://www.sevenseas.exchange/api/v1/markets/NOSO-USDT')
-                    .then(response => response.json())
-                    .then(data => {
-                      const lastPrice = data.lastPrice;
-                 
- 	      // Calculate total value locked
-                  const totalValueLocked = (mnCoinsLocked * lastPrice) * .000001;
-                  totalValueLockedElement.textContent = "$" + totalValueLocked.toFixed(2) + " M";
-
-                      // Calculate NOSOMCAP
-                      const nosomcap = currentSupply * lastPrice;
-                      nosomcapElement.textContent = "$" + (nosomcap / 100000000000000).toFixed(2) + " M";
-
-                      // Calculate TVL percentage
-                      const tvlPercentage = (mnCoinsLocked / currentSupply) * 10000000000;
-                      tvlPercentageElement.textContent = tvlPercentage.toFixed(2) + "%";
-
-	      // Calculate Circulating
-	      const circulating = (currentSupply / 21000000) *  .000001;
-	      circulatingElement.textContent = circulating.toFixed(2) + "%";
-
-                    })
-                    .catch(error => console.error(error));
-                })
-                .catch(error => console.error(error));
+          const responseSupply = await fetch('https://api.nosostats.com:8078', {
+            method: 'POST',
+            headers: {
+              'Origin': 'https://api.nosostats.com'
+            },
+            body: JSON.stringify({
+              "jsonrpc": "2.0",
+              "method": "getmainnetinfo",
+              "params": [],
+              "id": 11
             })
-            .catch(error => console.error(error));
-        })
-        .catch(error => console.error(error));
+          });
+
+          const dataSupply = await responseSupply.json();
+          const currentSupply = dataSupply.result[0].supply;
+
+          const nodeAroi = (52560 * nodeReward) / 105;
+          const nodeAroiUsdt = (52560 * nodeReward) * nosoUsdtLastPrice;
+          const totalValueLocked = (mnCoinsLocked * nosoUsdtLastPrice) * 0.000001;
+          const nosomcap = currentSupply * nosoUsdtLastPrice;
+          const circulating = ((currentSupply / 2100000000000000) * 100).toFixed(2);
+          const circulatingFormatted = Math.floor(circulating) + "." + (circulating % 1 * 100).toFixed(0);
+          const tvlPercentage = (mnCoinsLocked / currentSupply) * 10000000000;
+
+          const nodeCountElement = document.getElementById('node-count');
+          const mnCoinsLockedElement = document.getElementById('mncoinslocked');
+          const totalValueLockedElement = document.getElementById('totalvaluelocked');
+          const tvlPercentageElement = document.getElementById('tvlpercentage');
+          const nosomcapElement = document.getElementById('nosomcap');
+          const circulatingElement = document.getElementById('circulating');
+          const nodeAroiElement = document.getElementById('node-aroi');
+          const nodeRewardElement = document.getElementById('node-reward');
+          const nodeAroiUsdtElement = document.getElementById('node-aroi-usdt');
+
+          nodeCountElement.textContent = nodeCount;
+          mnCoinsLockedElement.textContent = (mnCoinsLocked / 1000000).toFixed(2) + "M /";
+          nodeRewardElement.textContent = nodeReward.toFixed(8);
+          nodeAroiElement.textContent = Math.round(nodeAroi).toFixed(0);
+          nodeAroiUsdtElement.textContent = Math.round(nodeAroiUsdt).toFixed(0);
+          totalValueLockedElement.textContent = "$" + totalValueLocked.toFixed(2) + " M";
+          nosomcapElement.textContent = "$" + (nosomcap / 100000000000000).toFixed(2) + " M";
+          circulatingElement.textContent = circulatingFormatted + "%";
+          tvlPercentageElement.textContent = Math.round(tvlPercentage).toFixed(0) + "%";
+
+        } else {
+          console.error("Error fetching LivecoinWatch data");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     });
+
+    async function fetchLivecoinWatchData() {
+      try {
+        const response = await fetch(new Request("https://api.livecoinwatch.com/coins/single"), {
+          method: "POST",
+          headers: new Headers({
+            "content-type": "application/json",
+            "x-api-key": "20e72753-31e6-46f4-8ed0-a8e92161b1fc", // Replace with your actual API key
+          }),
+          body: JSON.stringify({
+            currency: "USD",
+            code: "NOSO",
+            meta: false,
+          }),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          return result;
+        } else {
+          throw new Error("LivecoinWatch API request failed");
+        }
+      } catch (error) {
+        console.error("Error fetching LivecoinWatch data:", error);
+        return null;
+      }
+    }
