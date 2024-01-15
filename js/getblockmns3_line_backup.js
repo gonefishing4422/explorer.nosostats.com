@@ -14,10 +14,10 @@ function fetchDataForBlockHeights(customBlockHeights) {
 
   // Function to fetch data for a single block height
   function fetchDataForBlockHeight(customBlockHeight) {
-    return fetch('https://api.nosostats.com:8078', {
+    return fetch('https://rpc.nosocoin.com:8078', {
       method: 'POST',
       headers: {
-        'Origin': 'https://api.nosostats.com'
+        'Origin': 'https://rpc.nosocoin.com'
       },
       body: JSON.stringify({
         "jsonrpc": "2.0",
@@ -50,10 +50,10 @@ function fetchDataForBlockHeights(customBlockHeights) {
 function fetchDataForBlockHeights2(customBlockHeights) {
   // Function to fetch data for a single block height
   function fetchDataForBlockHeight(customBlockHeight) {
-    return fetch('https://api.nosostats.com:8078', {
+    return fetch('https://rpc.nosocoin.com:8078', {
       method: 'POST',
       headers: {
-        'Origin': 'https://api.nosostats.com'
+        'Origin': 'https://rpc.nosocoin.com'
       },
       body: JSON.stringify({
         "jsonrpc": "2.0",
@@ -245,10 +245,10 @@ let customBlockHeight = customParams.get('blockheight');
 
 if (!customBlockHeight) {
   // If customBlockHeight is not set, fetch the current height
-  fetch('https://api.nosostats.com:8078', {
+  fetch('https://rpc.nosocoin.com:8078', {
     method: 'POST',
     headers: {
-      'Origin': 'https://api.nosostats.com'
+      'Origin': 'https://rpc.nosocoin.com'
     },
     body: JSON.stringify({
       "jsonrpc": "2.0",
