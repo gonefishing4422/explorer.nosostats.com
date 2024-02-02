@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Status</title>
+    <style>
+        .table {
+            display: table;
+            width: 100%;
+        }
+        .row {
+            display: table-row;
+        }
+        .cell {
+            display: table-cell;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+        .online-address {
+            background-color: lightgreen;
+        }
+        .offline-address {
+            background-color: salmon;
+        }
+        #addresses {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Node Status</h2>
+    <form id="addressForm">
+        <label for="addresses">Enter Addresses (comma-separated):</label><br>
+        <textarea id="addresses" name="addresses"></textarea><br>
+        <label for="csvFile">Upload CSV File:</label>
+        <input type="file" id="csvFile" name="csvFile"><br>
+        <button type="submit">Get Status</button>
+    </form>
+    <br>
+    <div id="statusTable" class="table">
+        <div class="row header">
+            <div class="cell">Address</div>
+            <div class="cell">Status</div>
+            <div class="cell">Description</div>
+            <div class="cell">Consecutive Payments</div>
+            <div class="cell">Uptime Percent</div>
+            <div class="cell">Monthly Earning</div>
+            <div class="cell">Monthly Earning USDT</div>
+        </div>
+    </div>
+    <button id="saveButton" style="display: none;">Save Changes</button>
+
+    <script>
+        let changesMade = false; // Flag to track changes made to the table
+
+        document.getElementById('addressForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get addresses from the form
+            const addressesInput = document.getElementById('addresses').value.trim();
+            const addresses = addressesInput.split(',').map(address => address.trim());
+
+            // Get CSV file data if provided
+            const csvFile = document.getElementById('csvFile').files[0];
+            if (csvFile) {
+                // Read the CSV file
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const csvData = event.target.result;
+                    // Process CSV data
+                    processCSV(csvData);
+                };
+                reader.readAsText(csvFile);
+            } else if (addresses.length > 0) {
+                // Clear the table before adding new data
+                clearTable();
+                // Fetch data for each address
+                addresses.forEach(address => {
+                    fetch(`https://api.nosocoin.com/nodes/status?address=${address}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Append data to the table
+                        appendDataToTable(data);
+                        countOfflineStatus();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+                });
+            } else {
+                alert('Please enter at least one address or upload a CSV file.');
+            }
+
+            // Call the function to fetch data initially
+            fetchDataAndUpdateTable();
+
+            // Update the data in the table every 60 seconds
+            setInterval(fetchDataAndUpdateTable, 15000); // 60000 milliseconds = 60 seconds
+        });
+
+        function clearTable() {
+            const statusTable = document.getElementById('statusTable');
+            // Keep the header row and remove other rows
+            const rows = document.querySelectorAll('.row:not(.header)');
+            rows.forEach(row => {
+                statusTable.removeChild(row);
+            });
+        }
+
+        function appendDataToTable(data) {
+            const statusTable = document.getElementById('statusTable');
+
+            // Create data row
+            const row = document.createElement('div');
+            row.classList.add('row');
+            row.innerHTML = `
+                <div class="cell ${data.status === 'online' ? 'online-address' : 'offline-address'}">${data.address}</div>
+                <div class="cell">${data.status}</div>
+                <div class="cell" contenteditable="true">${data.description}</div>
+                <div class="cell">${data.consecutive_payments}</div>
+                <div class="cell">${data.uptime_percent}</div>
+                <div class="cell">${data.monthly_earning}</div>
+                <div class="cell">$${data.monthly_earning_usdt}</div>
+            `;
+
+            // Insert offline rows under the header
+            if (data.status === 'offline') {
+                const headerRow = statusTable.querySelector('.header');
+                statusTable.insertBefore(row, headerRow.nextSibling);
+            } else {
+                // For online rows, find the insertion index based on consecutive payments
+                const rows = Array.from(document.querySelectorAll('.row:not(.header)'));
+                let insertionIndex = rows.findIndex(existingRow => {
+                    if (existingRow.classList.contains('offline-address')) return false; // Skip offline rows
+                    const existingConsecutivePayments = parseInt(existingRow.children[3].textContent);
+                    const newConsecutivePayments = parseInt(row.children[3].textContent);
+                    return newConsecutivePayments < existingConsecutivePayments;
+                });
+                if (insertionIndex === -1) insertionIndex = rows.length; // Insert at the end if no smaller value found
+                statusTable.insertBefore(row, rows[insertionIndex]);
+            }
+
+            // Show the Save button if changes were made
+            if (changesMade) {
+                document.getElementById('saveButton').style.display = 'inline';
+            }
+
+            // Attach event listener to track changes in the description cell
+            const descriptionCell = row.querySelector('.cell:nth-child(3)');
+            descriptionCell.addEventListener('input', function() {
+                changesMade = true;
+                document.getElementById('saveButton').style.display = 'inline';
+            });
+        }
+
+        function processCSV(csvData) {
+            // Parse CSV data
+            const lines = csvData.split('\n');
+            const addresses = [];
+
+            lines.forEach(line => {
+                const parts = line.split(',');
+                const address = parts[0].trim(); // Assuming address is the first column
+                const description = parts.length > 1 ? parts[1].trim() : ''; // Check if description exists
+
+                addresses.push({ address, description });
+            });
+
+            // Clear the table before adding new data
+            clearTable();
+
+            // Fetch data for each address
+            addresses.forEach(addressData => {
+                fetch(`https://api.nosocoin.com/nodes/status?address=${addressData.address}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Append data to the table
+                    appendDataToTable({ ...data, description: addressData.description });
+                    countOfflineStatus();
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+            });
+        }
+
+        function fetchDataAndUpdateTable() {
+            const addressesInput = document.getElementById('addresses').value.trim();
+            const addresses = addressesInput.split(',').map(address => address.trim());
+
+            // Fetch data for each address
+            addresses.forEach(address => {
+                fetch(`https://api.nosocoin.com/nodes/status?address=${address}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Append data to the table
+                    appendDataToTable(data);
+                    countOfflineStatus();
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+            });
+        }
+
+        function countOfflineStatus() {
+            const offlineCount = document.querySelectorAll('.offline-address').length;
+            const totalCount = document.querySelectorAll('.row:not(.header)').length;
+            const addressHeader = document.querySelector('.header .cell:nth-child(1)');
+            addressHeader.textContent = `Address (${totalCount}) ${offlineCount} offline`;
+        }
+
+        document.getElementById('saveButton').addEventListener('click', function() {
+            saveToCSV();
+        });
+
+        function saveToCSV() {
+            const rows = Array.from(document.querySelectorAll('.row')).slice(1); // Exclude the header row
+            let csvContent = '';
+
+            rows.forEach(row => {
+                const address = row.children[0].textContent.trim();
+                const description = row.children[2].textContent.trim();
+                csvContent += `${address},${description},\n`;
+            });
+
+            // Create a blob with the CSV data
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+                // Create a link element, hide it, direct it towards the blob, and then 'click' it programmatically
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'nodes.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                // Reset changes made flag
+                changesMade = false;
+                document.getElementById('saveButton').style.display = 'none'; // Hide the Save button
+            }
+        }
+    </script>
+</body>
+</html>
