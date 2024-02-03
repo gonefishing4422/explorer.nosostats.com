@@ -52,6 +52,8 @@
 </head>
 <body>
     <h2>Node Status</h2>
+    <p>Copy your custom URL for future use:</p>
+    <p><a id="customUrlLink" href="javascript:void(0)" onclick="copyCustomUrl()">My Custom URL</a></p>
     <form id="addressForm">
         <label for="addresses">Enter Addresses (comma-separated):</label><br>
         <textarea id="addresses" name="addresses"></textarea><br>
@@ -76,6 +78,33 @@
     <script>
         let changesMade = false; // Flag to track changes made to the table
 
+        // Function to copy custom URL
+        function copyCustomUrl() {
+            const customUrl = generateCustomUrl();
+            const input = document.createElement('input');
+            input.setAttribute('value', customUrl);
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            alert('Custom URL copied to clipboard!');
+        }
+
+        // Function to generate custom URL
+        function generateCustomUrl() {
+            const rows = document.querySelectorAll('.row:not(.header)');
+            let customUrl = window.location.href.split('?')[0]; // Get the base URL without parameters
+            customUrl += '?mynodes=';
+            rows.forEach(row => {
+                const address = row.children[0].textContent.trim();
+                const description = row.querySelector('.description').value.trim();
+                customUrl += `${address}:${description},`;
+            });
+            // Remove trailing comma
+            customUrl = customUrl.slice(0, -1);
+            return customUrl;
+        }
+
         document.getElementById('addressForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission
 
@@ -96,7 +125,7 @@
                 } else {
                     // Clear the table before adding new data
                     clearTable();
-                    // Fetch data for each address
+                    // Fetch data for each address from manual input
                     const addresses = addressesInput.split(',').map(address => address.trim());
                     addresses.forEach(address => {
                         fetchDataForAddress(address);
@@ -106,6 +135,16 @@
                 alert('Please enter at least one address or upload a CSV file.');
             }
         });
+
+        // Fetch data for addresses provided in the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('mynodes')) {
+            const nodeAddresses = urlParams.get('mynodes').split(',');
+            nodeAddresses.forEach(pair => {
+                const [address, description] = pair.split(':');
+                fetchDataForAddress(address.trim(), description ? description.trim() : '');
+            });
+        }
 
         function clearTable() {
             const statusTable = document.getElementById('statusTable');
@@ -199,6 +238,9 @@
             const totalCount = document.querySelectorAll('.row:not(.header)').length;
             const addressHeader = document.querySelector('.header .cell:nth-child(1)');
             addressHeader.textContent = `Address (${totalCount}) ${offlineCount} offline`;
+
+            // Update custom URL link when status changes
+            document.getElementById('customUrlLink').setAttribute('href', generateCustomUrl());
         }
 
         document.getElementById('saveButton').addEventListener('click', function() {
