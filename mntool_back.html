@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="refresh" content="300">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,21 +29,7 @@
             display: table-row;
           
         }
-        .cell {
-            display: table-cell;
-            padding: 0px;
-            border-bottom: 1px solid #222222;
-            color: darkgrey;
-            position: relative; /* Added for positioning */
-        }
-  
-        .cell-address {
-            display: table-cell;
-            padding: 5px;
-            border-bottom: 1px solid #222222;
-            color: white;
-            position: relative; /* Added for positioning */
-        }      
+    
         .header {
             font-weight: bold;
             background-color: black;
@@ -103,7 +88,11 @@
         }    
         #csvFile {
             display: none; /* Hide the default file input button */
-        }      
+        }
+      .fa1 {
+        background-color: black;
+        color : red;
+      }
     </style>
     <!--style-->
   </head>
@@ -169,28 +158,28 @@
         <h3>Noso Node Monitor</h3>
         <br>
         <form id="addressForm"><br>
-          <textarea id="addresses" name="addresses" placeholder="&nbsp;Enter Your Noso Node addresses (comma-separated)"></textarea><br>
+          <textarea id="addresses" name="addresses" placeholder="&nbsp;Enter Noso addresses (comma-separated)"></textarea><br>
           <button type="submit2"></button> </form>
         <br>
         <label for="csvFile" class="page-action-button" title="Import from CSV File | address1,description1,address2,description2">Import
           from CSV File:</label><input id="csvFile" name="csvFile" type="file">
-        <strong><a id="customUrlLink" class="bookmark-link page-action-button" title="Add bookmark to your browser for future use"
+        <a id="customUrlLink" class="bookmark-link page-action-button" title="Add bookmark to your browser for future use"
 
-            href="javascript:void(0)" onclick="bookmarkPage()">Bookmark This
-            Page</a></strong> <button id="clearFormButton" type="button" class="page-action-button"><b>Clear
-            Form</b></button> <br>
+          href="javascript:void(0)" onclick="bookmarkPage()">Bookmark
+          This Page</a> <button id="clearFormButton" type="button" class="page-action-button">Clear
+          Form</button> <br>
         <br>
         <div id="statusTable" class="table">
           <div class="row header">
-            <div class="cell">Address</div>
-            <div class="cell">Status</div>
-            <div class="cell">Description <button id="saveButton" class="save-button fa fa-save"
+            <div class="cell1 priority-1">Address</div>
+            <div class="cell1 priority-4">Status</div>
+            <div class="cell1 priority-1">Description <button id="saveButton" class="save-button fa1 fa-save"
 
                 alt="save-button" title="Save changes to CSV File"> </button></div>
-            <div class="cell">Consecutive Payments</div>
-            <div class="cell">Uptime Percent</div>
-            <div class="cell">Monthly Earning</div>
-            <div class="cell">Monthly Earning USDT</div>
+            <div class="cell1 priority-4">Consecutive Payments</div>
+            <div class="cell1 priority-5">Uptime Percent</div>
+            <div class="cell1 priority-5">Monthly Earning</div>
+            <div class="cell1 priority-5">Monthly Earning USDT</div>
           </div>
         </div>
       </div>
@@ -301,15 +290,15 @@
             const row = document.createElement('div');
             row.classList.add('row');
             row.innerHTML = `
-                <div class="cell-address ${data.status === 'online' ? 'online-address' : 'offline-address'}">${data.address}</div>
-                <div class="cell">${data.status}</div>
-                <div class="cell">
+                <div class="cell1-address ${data.status === 'online' ? 'online-address' : 'offline-address'} priority-1">${data.address}</div>
+                <div class="cell1 priority-4">${data.status}</div>
+                <div class="cell1 priority-1">
                     <textarea class="description" contenteditable="true">${data.description}</textarea>
                 </div>
-                <div class="cell">${data.consecutive_payments}</div>
-                <div class="cell">${data.uptime_percent}%</div>
-                <div class="cell">${data.monthly_earning}</div>
-                <div class="cell">$${data.monthly_earning_usdt}</div>
+                <div class="cell1 priority-4">${data.consecutive_payments}</div>
+                <div class="cell1 priority-5">${data.uptime_percent}%</div>
+                <div class="cell1 priority-5">${data.monthly_earning}</div>
+                <div class="cell1 priority-5">$${data.monthly_earning_usdt}</div>
             `;
 
             // Insert offline rows under the header
