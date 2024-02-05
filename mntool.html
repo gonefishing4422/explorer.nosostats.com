@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="refresh" content="300">
+
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -442,7 +442,24 @@
             // Redirect to the base URL without any query parameters
             window.location.href = window.location.href.split('?')[0];
         }
+        // Function to calculate time until the next 10-minute interval
+        function calculateRefreshTime() {
+            const now = new Date();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const remainingSeconds = (10 - (minutes % 10) - 1) * 60 + (60 - seconds) + 30;
+            return remainingSeconds * 1000; // Convert to milliseconds
+        }
 
+        // Function to refresh the page after a calculated interval
+        function refreshPage() {
+            setTimeout(function() {
+                location.reload();
+            }, calculateRefreshTime());
+        }
+
+        // Call the function to refresh the page initially
+        refreshPage();
     </script> </a></div>
     <a id="customUrlLink" class="bookmark-link" href="javascript:void(0)" onclick="bookmarkPage()">
     </a>
