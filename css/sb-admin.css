@@ -411,6 +411,23 @@ table.tablesorter thead tr th:hover {
     text-align: center;
 }
 
+/* MNTooltable */
+.cell1 {
+    display: table-cell;
+    padding: 0px;
+    border-bottom: 1px solid #222222;
+    color: darkgrey;
+    position: relative; /* Added for positioning */
+}
+
+.cell1-address {
+    display: table-cell;
+    padding: 5px;
+    border-bottom: 1px solid #222222;
+    color: white;
+    position: relative; /* Added for positioning */
+} 
+
 /* Node styled table */
 
 .styled-table {
