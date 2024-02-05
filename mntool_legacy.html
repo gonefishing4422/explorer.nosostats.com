@@ -1,25 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Noso Exporer</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Include Highcharts library -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/stock.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/search.js"></script>
-    <!---chart-->
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!-- Add custom CSS here -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <!-- Page Specific CSS -->
+    <title>Node Status</title>
     <style>
         .table {
             display: table;
@@ -27,174 +11,75 @@
         }
         .row {
             display: table-row;
-          
         }
         .cell {
             display: table-cell;
-            padding: 0px;
-            border-bottom: 1px solid #222222;
-            color: darkgrey;
+            padding: 8px;
+            border: 1px solid #ddd;
             position: relative; /* Added for positioning */
         }
-  
-        .cell-address {
-            display: table-cell;
-            padding: 5px;
-            border-bottom: 1px solid #222222;
-            color: white;
-            position: relative; /* Added for positioning */
-        }      
         .header {
             font-weight: bold;
-            background-color: black;
-            
+            background-color: #f2f2f2;
+            cursor: pointer;
         }
         .online-address {
-            background-color: #149414;
+            background-color: lightgreen;
         }
         .offline-address {
-            background-color: #bf1029;
+            background-color: salmon;
         }
         #addresses {
             width: 100%;
-            height: 50px;
-            margin-left: 1px;
-            background-color: black;
-            color: darkgrey;
+            height: 150px;
+            margin-bottom: 10px;
         }
         .hidden {
             display: none;
         }
         .description {
             width: 100%;
-            height: 25px;
-            color: darkgrey;
-            padding: 0px;
-            border: 1px solid #222222;
-            border-radius: 3px;
-            background-color: black;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             box-sizing: border-box; /* Added for proper width calculation */
         }
         .save-button {
             display: none;
-            margin-top: 0px;
+            margin-top: 10px;
         }
         .bookmark-link {
             display: block;
             margin-top: 10px;
         }
-          .page-action-button {
-            border: 1px solid #ccc;
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
-            background-color: #fbe04d; /* Background color */
-            color: #333; /* Text color */
-            
-            border-radius: 5px;
-            opacity: 0.7;
-
-        }
-
-        .page-action-button:hover {
-            background-color: #fbe04d; /* Hover background color */
-            opacity: 1;
-        }    
-        #csvFile {
-            display: none; /* Hide the default file input button */
-        }      
     </style>
-    <!--style-->
-  </head>
-  <body color="#222222">
-    <div id="wrapper">
-      <!-- Sidebar -->
-      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header"> <button type="button" class="navbar-toggle"
-
-            data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle
-              navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-            <span class="icon-bar"></span> </button><a class="navbar-brand" href="explorer.html"><img
-
-              src="img/logo_clearbg.png" alt="nosologo" title="nosologo" style="width: 20px; height: 20px;">&nbsp;
-            NOSO <span class="navbar-logo">Explorer</span> <font size="1px">Beta</font>
-          </a> </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <!--  <li><a href="explorer.html"><i class="fa fa-dashboard"></i>
-                NosoStats</a></li> -->
-            <li class="active"><a href="explorer.html"><i class="fa fa-search"></i>
-                Explorer</a></li>
-            <!--  <li><a href="masternodes.html"> Coin Distribution</a></li>
-            <li><a href="masternodes.html"> Top Addresses</a></li> -->
-            <li><a href="masternodes.html"><i class="fa fa-globe"></i>
-                Masternodes</a></li>
-            <li><a href="api.html"><i class="fa fa-wrench"></i> API </a></li>
-            <li class="priority-9"><a href="qr.html"><img src="img/qr.png" height="30px">
-                QR</a></li>
-            <!-- <li><a href="masternodes.html"><i class="fa fa-money"></i>
-                Market</a></li> -->
-          </ul>
-          <!-- /.navbar-top-right -->
-          <div class="toprow">
-            <ul class="nav navbar-nav navbar-right navbar-user">
-              <li><a href="https://twitter.com/NosoCoin" target="_blank"> <img
-
-                    src="img/twitter_bird.png" style="width: 20px; height: 16px;"
-
-                    alt="Noso on Twitter"></a> </li>
-              <li><a href="https://discord.gg/weed5ePmfY" target="_blank"> <img
-
-                    src="img/discord.png" style="width: 24px; height: 22px;" alt="Noso on Discord"></a></li>
-              <li><a href="https://t.me/nosocoin" target="_blank"> <img src="img/telegram.png"
-
-                    style="width: 24px; height: 23px;" alt="Noso on telegram"></a></li>
-              <li><a href="https://nosocoin.com/"> <img src="img/nosoN.png" style="width: 24px; height: 23px;"
-
-                    alt="Noso Website"></a></li>
-              <li><a href="https://docs.nosocoin.com/noso-developers-portal/rpc-connection/running-a-noso-json-rpc-node-for-development-utilizing-nosos-rest-api"
-
-                  target="_blank"> <img src="img/api.png" style="width: 28px; height: 24px;"
-
-                    alt="Noso Developers"></a></li>
-            </ul>
-          </div>
-        </div>
-        <!-- /.navbar-collapse --> </nav>
-      <br>
-      <div class="row2">
-        <h3>Noso Node Monitor</h3>
-        <br>
-        <form id="addressForm"><br>
-          <textarea id="addresses" name="addresses" placeholder="&nbsp;Enter Noso addresses (comma-separated)"></textarea><br>
-          <button type="submit2"></button> </form>
-        <br>
-        <label for="csvFile" class="page-action-button" title="Import from CSV File | address1,description1,address2,description2">Import
-          from CSV File:</label><input id="csvFile" name="csvFile" type="file">
-        <a id="customUrlLink" class="bookmark-link page-action-button" title="Add bookmark to your browser for future use"
-
-          href="javascript:void(0)" onclick="bookmarkPage()">Bookmark This
-          Page</a> <button id="clearFormButton" type="button" class="page-action-button">Clear
-          Form</button> <br>
-        <br>
-        <div id="statusTable" class="table">
-          <div class="row header">
+</head>
+<body>
+    <h2>Node Status</h2>
+    <p>Bookmark this page for future use:</p>
+    <p><a id="customUrlLink" class="bookmark-link" href="javascript:void(0)" onclick="bookmarkPage()">Bookmark This Page</a></p>
+    <form id="addressForm">
+        <label for="addresses">Enter Addresses (comma-separated):</label><br>
+        <textarea id="addresses" name="addresses"></textarea><br>
+        <label for="csvFile">Upload CSV File:</label>
+        <input type="file" id="csvFile" name="csvFile"><br>
+        <button type="submit">Get Status</button>
+    </form>
+    <br>
+    <div id="statusTable" class="table">
+        <div class="row header">
             <div class="cell">Address</div>
             <div class="cell">Status</div>
-            <div class="cell">Description <button id="saveButton" class="save-button fa fa-save"
-
-                alt="save-button" title="Save changes to CSV File"> </button></div>
+            <div class="cell">Description <button id="saveButton" class="save-button" alt="save-button" title='Save changes'> <img src="img/save.png"></button></div>
             <div class="cell">Consecutive Payments</div>
             <div class="cell">Uptime Percent</div>
             <div class="cell">Monthly Earning</div>
             <div class="cell">Monthly Earning USDT</div>
-          </div>
         </div>
-      </div>
-      <a id="customUrlLink" class="bookmark-link" href="javascript:void(0)" onclick="bookmarkPage()">
-        <script>
+    </div>
+    
+
+    <script>
         function bookmarkPage() {
             var pageTitle = document.title;
             var pageURL = window.location.href;
@@ -300,13 +185,13 @@
             const row = document.createElement('div');
             row.classList.add('row');
             row.innerHTML = `
-                <div class="cell-address ${data.status === 'online' ? 'online-address' : 'offline-address'}">${data.address}</div>
+                <div class="cell ${data.status === 'online' ? 'online-address' : 'offline-address'}">${data.address}</div>
                 <div class="cell">${data.status}</div>
                 <div class="cell">
                     <textarea class="description" contenteditable="true">${data.description}</textarea>
                 </div>
                 <div class="cell">${data.consecutive_payments}</div>
-                <div class="cell">${data.uptime_percent}%</div>
+                <div class="cell">${data.uptime_percent}</div>
                 <div class="cell">${data.monthly_earning}</div>
                 <div class="cell">$${data.monthly_earning_usdt}</div>
             `;
@@ -412,38 +297,24 @@
                 document.getElementById('saveButton').style.display = 'none'; // Hide the Save button
             }
         }
-              // Add an event listener to the file input element
-          document.getElementById('csvFile').addEventListener('change', function(event) {
-              const file = event.target.files[0]; // Get the selected file
-              const reader = new FileReader(); // Create a new FileReader object
-              reader.onload = function(event) {
-                  const csvData = event.target.result; // Get the CSV data from the FileReader
-                  processCSV(csvData); // Process the CSV data
-              };
-              reader.readAsText(file); // Read the selected file as text
-          });
 
-          // Submit event listener for the form
-          document.getElementById('addressForm').addEventListener('submit', function(event) {
-              event.preventDefault(); // Prevent form submission
+    // Add an event listener to the file input element
+document.getElementById('csvFile').addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Get the selected file
+    const reader = new FileReader(); // Create a new FileReader object
+    reader.onload = function(event) {
+        const csvData = event.target.result; // Get the CSV data from the FileReader
+        processCSV(csvData); // Process the CSV data
+    };
+    reader.readAsText(file); // Read the selected file as text
+});
+
+// Submit event listener for the form
+document.getElementById('addressForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
 
 
-          }); 
-        // Add event listener for the clear form button
-        document.getElementById('clearFormButton').addEventListener('click', function() {
-            clearForm();
-        });
-
-        // Function to clear the form
-        function clearForm() {
-            // Reset the form elements to their initial state
-            document.getElementById('addressForm').reset();
-            // Redirect to the base URL without any query parameters
-            window.location.href = window.location.href.split('?')[0];
-        }
-
-    </script> </a></div>
-    <a id="customUrlLink" class="bookmark-link" href="javascript:void(0)" onclick="bookmarkPage()">
-    </a>
-  </body>
+});
+</script>
+</body>
 </html>
