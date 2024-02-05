@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,88 +21,10 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <!-- Page Specific CSS -->
     <style>
-        .table {
-            display: table;
-            width: 100%;
-        }
-        .row {
-            display: table-row;
-          
-        }
-        .cell {
-            display: table-cell;
-            padding: 0px;
-            border-bottom: 1px solid #222222;
-            color: darkgrey;
-            position: relative; /* Added for positioning */
-        }
-  
-        .cell-address {
-            display: table-cell;
-            padding: 5px;
-            border-bottom: 1px solid #222222;
-            color: white;
-            position: relative; /* Added for positioning */
-        }      
-        .header {
-            font-weight: bold;
-            background-color: black;
-            
-        }
-        .online-address {
-            background-color: #149414;
-        }
-        .offline-address {
-            background-color: #bf1029;
-        }
-        #addresses {
-            width: 100%;
-            height: 50px;
-            margin-left: 1px;
-            background-color: black;
-            color: darkgrey;
-        }
-        .hidden {
-            display: none;
-        }
-        .description {
-            width: 100%;
-            height: 25px;
-            color: darkgrey;
-            padding: 0px;
-            border: 1px solid #222222;
-            border-radius: 3px;
-            background-color: black;
-            box-sizing: border-box; /* Added for proper width calculation */
-        }
-        .save-button {
+          .save-button {
             display: none;
             margin-top: 0px;
         }
-        .bookmark-link {
-            display: block;
-            margin-top: 10px;
-        }
-          .page-action-button {
-            border: 1px solid #ccc;
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
-            background-color: #fbe04d; /* Background color */
-            color: #333; /* Text color */
-            
-            border-radius: 5px;
-            opacity: 0.7;
-
-        }
-
-        .page-action-button:hover {
-            background-color: #fbe04d; /* Hover background color */
-            opacity: 1;
-        }    
-        #csvFile {
-            display: none; /* Hide the default file input button */
-        }      
     </style>
     <!--style-->
   </head>
@@ -180,17 +101,17 @@
             Page</a></strong> <button id="clearFormButton" type="button" class="page-action-button"><b>Clear
             Form</b></button> <br>
         <br>
-        <div id="statusTable" class="table">
-          <div class="row header">
-            <div class="cell">Address</div>
-            <div class="cell">Status</div>
-            <div class="cell">Description <button id="saveButton" class="save-button fa fa-save"
+        <div id="statusTable" class="custom-table">
+          <div class="custom-row header">
+            <div class="custom-cell priority-1">Address</div>
+            <div class="custom-cell priority-5">Status</div>
+            <div class="custom-cell priority-1">Description <button id="saveButton" class="save-button fa fa-save"
 
                 alt="save-button" title="Save changes to CSV File"> </button></div>
-            <div class="cell">Consecutive Payments</div>
-            <div class="cell">Uptime Percent</div>
-            <div class="cell">Monthly Earning</div>
-            <div class="cell">Monthly Earning USDT</div>
+            <div class="custom-cell priority-5">Consecutive Payments</div>
+            <div class="custom-cell priority-5">Uptime Percent</div>
+            <div class="custom-cell priority-5">Monthly Earning</div>
+            <div class="custom-cell priority-5">Monthly Earning USDT</div>
           </div>
         </div>
       </div>
@@ -231,7 +152,7 @@
 
         // Function to generate custom URL
         function generateCustomUrl() {
-            const rows = document.querySelectorAll('.row:not(.header)');
+            const rows = document.querySelectorAll('.custom-row:not(.header)');
             let customUrl = window.location.href.split('?')[0]; // Get the base URL without parameters
             customUrl += '?mynodes=';
             rows.forEach(row => {
@@ -288,7 +209,7 @@
         function clearTable() {
             const statusTable = document.getElementById('statusTable');
             // Keep the header row and remove other rows
-            const rows = document.querySelectorAll('.row:not(.header)');
+            const rows = document.querySelectorAll('.custom-row:not(.header)');
             rows.forEach(row => {
                 statusTable.removeChild(row);
             });
@@ -299,17 +220,17 @@
 
             // Create data row
             const row = document.createElement('div');
-            row.classList.add('row');
+            row.classList.add('custom-row');
             row.innerHTML = `
-                <div class="cell-address ${data.status === 'online' ? 'online-address' : 'offline-address'}">${data.address}</div>
-                <div class="cell">${data.status}</div>
-                <div class="cell">
+                <div class="custom-cell-address ${data.status === 'online' ? 'online-address' : 'offline-address'}  priority-1">${data.address}</div>
+                <div class="custom-cell  priority-5">${data.status}</div>
+                <div class="custom-cell  priority-1">
                     <textarea class="description" contenteditable="true">${data.description}</textarea>
                 </div>
-                <div class="cell">${data.consecutive_payments}</div>
-                <div class="cell">${data.uptime_percent}%</div>
-                <div class="cell">${data.monthly_earning}</div>
-                <div class="cell">$${data.monthly_earning_usdt}</div>
+                <div class="custom-cell priority-5">${data.consecutive_payments}</div>
+                <div class="custom-cell priority-5">${data.uptime_percent}%</div>
+                <div class="custom-cell priority-5">${data.monthly_earning}</div>
+                <div class="custom-cell priority-5">$${data.monthly_earning_usdt}</div>
             `;
 
             // Insert offline rows under the header
@@ -318,7 +239,7 @@
                 statusTable.insertBefore(row, headerRow.nextSibling);
             } else {
                 // For online rows, find the insertion index based on consecutive payments
-                const rows = Array.from(document.querySelectorAll('.row:not(.header)'));
+                const rows = Array.from(document.querySelectorAll('.custom-row:not(.header)'));
                 let insertionIndex = rows.findIndex(existingRow => {
                     if (existingRow.classList.contains('offline-address')) return false; // Skip offline rows
                     const existingConsecutivePayments = parseInt(existingRow.children[3].textContent);
@@ -374,8 +295,8 @@
 
         function countOfflineStatus() {
             const offlineCount = document.querySelectorAll('.offline-address').length;
-            const totalCount = document.querySelectorAll('.row:not(.header)').length;
-            const addressHeader = document.querySelector('.header .cell:nth-child(1)');
+            const totalCount = document.querySelectorAll('.custom-row:not(.header)').length;
+            const addressHeader = document.querySelector('.header .custom-cell:nth-child(1)');
             addressHeader.textContent = `Address (${totalCount}) ${offlineCount} offline`;
 
             // Update custom URL link when status changes
@@ -387,7 +308,7 @@
         });
 
         function saveToCSV() {
-            const rows = Array.from(document.querySelectorAll('.row')).slice(1); // Exclude the header row
+            const rows = Array.from(document.querySelectorAll('.custom-row')).slice(1); // Exclude the header row
             let csvContent = '';
 
             rows.forEach(row => {
