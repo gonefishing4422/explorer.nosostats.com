@@ -466,10 +466,7 @@ table.tablesorter thead tr th:hover {
             background-color: black;
             box-sizing: border-box; /* Added for proper width calculation */
         }
-        .save-button {
-            display: none;
-            margin-top: 0px;
-        }
+
         .bookmark-link {
             display: block;
             margin-top: 10px;
