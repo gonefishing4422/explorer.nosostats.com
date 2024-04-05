@@ -5628,10 +5628,12 @@ a.list-group-item.active:focus .list-group-item-text {
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  /* min-width: 768px;   /* panel width*/
 }
 
 .panel-body {
   padding: 1px;
+  
 background-color: transparent;
   
 }
@@ -5739,10 +5741,12 @@ background-color: transparent;
 
 .panel-heading {
   padding: 8px 15px;
-  border-bottom: 1px solid transparent;  /* Head text background */
+  border-bottom: 1px solid  transparent;  /* Head text background */
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-  
+  min-width: 330px;
+  background-color: #333333;
+
 
 }
 
@@ -5751,7 +5755,7 @@ background-color: transparent;
 }
 
 .panel-title {
-  margin-top: 0;
+  margin-top: 5px;
   margin-bottom: 0;
   font-size: 16px;
   background-color: inherit;
@@ -5820,6 +5824,7 @@ background-color: transparent;
 
 .panel-primary {
   border-color: #428bca;
+    /* min-width: 768px;   /* panel width*/
 }
 
 .panel-primary > .panel-heading {
