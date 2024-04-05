@@ -36,7 +36,8 @@ async function fetchLockFunds() {
     const mnLockFunds = await response.text();
 
     if (!isNaN(mnLockFunds)) {
-      document.getElementById('mn-lock-funds').innerText = mnLockFunds;
+     const formattedMnLockFunds = (parseFloat(mnLockFunds) / 1000000).toFixed(2) + 'M';
+      document.getElementById('mn-lock-funds').innerText = formattedMnLockFunds;
       return mnLockFunds;
     } else {
       throw new Error('mn-lock-funds data not a valid number.');
@@ -126,6 +127,27 @@ async function fetchDataForBlockHeight(blockHeight) {
     document.getElementById('total-reward').innerText = (data.result[0].total * 0.00000001).toFixed(8);
     document.getElementById('node-count').innerText = data.result[0].count;
     document.getElementById('node-reward').innerText = (data.result[0].reward * 0.00000001).toFixed(8);
+    
+// Calculate rewards in USDT
+const btcValue = parseFloat(await fetchBTCValue());
+const nosoCoinData = await fetchNosoCoinData();
+
+if (!isNaN(btcValue) && nosoCoinData && nosoCoinData.length > 0) {
+  const lastDataPoint = nosoCoinData[nosoCoinData.length - 1];
+  const nosoValueInUsdt = parseFloat(lastDataPoint.price); // Parse as float
+
+  if (!isNaN(nosoValueInUsdt)) {
+    const nodeRewardInUsdt = (data.result[0].reward * 0.00000001) * nosoValueInUsdt / btcValue;
+    document.getElementById('node-24hr-reward-usdt').innerText = nodeRewardInUsdt.toFixed(2);
+  } else {
+    document.getElementById('node-24hr-reward-usdt').innerText = "Failed to parse NosoCoin value as float.";
+  }
+} else {
+  document.getElementById('node-24hr-reward-usdt').innerText = "Failed to fetch BTC value or NosoCoin data.";
+}
+
+
+
     document.getElementById('node-24hr-reward').innerText = (data.result[0].reward * 0.00000001 * 144).toFixed(0);
     document.getElementById('node-7day-reward').innerText = (data.result[0].reward * 0.00000001 * 1008).toFixed(0);
     document.getElementById('node-30day-reward').innerText = (data.result[0].reward * 0.00000001 * 4320).toFixed(0);
@@ -140,7 +162,8 @@ async function fetchDataForBlockHeight(blockHeight) {
 
     // Node Locked Funds
     const nodeCount = data.result[0].count;
-    document.getElementById('node-funds-locked').innerText = parseInt(nodeCount * 10500);
+    const nodeFundsLocked = parseInt(nodeCount * 10500) / 1000000;
+    document.getElementById('node-funds-locked').innerText = nodeFundsLocked.toFixed(2) + 'M';
 
     // Calculate and set the earning-percentage
     const totalReward = parseFloat(data.result[0].total * 0.00000001);
@@ -158,6 +181,7 @@ async function fetchDataForBlockHeight(blockHeight) {
     console.error(error);
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
