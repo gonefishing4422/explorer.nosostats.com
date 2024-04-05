@@ -5194,7 +5194,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  background-color: transparent;
+  background-color: #ffffff;
   border-radius: 10px;
 }
 
@@ -5550,11 +5550,10 @@ a.thumbnail.active {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin-bottom: -1px;
-  color: darkgray;   /* font color*/
-  background-color: black; /* panel color*/
-  border: 1px solid #222222;  /* panel borders*/
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
 }
 
 .list-group-item:first-child {
@@ -5632,7 +5631,6 @@ a.list-group-item.active:focus .list-group-item-text {
 
 .panel-body {
   padding: 1px;
-background-color: transparent;
   
 }
 
@@ -5739,10 +5737,10 @@ background-color: transparent;
 
 .panel-heading {
   padding: 8px 15px;
-  border-bottom: 1px solid transparent;  /* Head text background */
+
+  border-bottom: 1px solid transparent;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-  
 
 }
 
@@ -5755,7 +5753,6 @@ background-color: transparent;
   margin-bottom: 0;
   font-size: 16px;
   background-color: inherit;
-  color: darkgrey;
 }
 
 .panel-title > a {
@@ -5823,9 +5820,9 @@ background-color: transparent;
 }
 
 .panel-primary > .panel-heading {
-  color: #ffffff ;
-  background-color: #222222;
-  border-color: #222222;
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #428bca;
 }
 
 .panel-primary > .panel-heading + .panel-collapse .panel-body {
