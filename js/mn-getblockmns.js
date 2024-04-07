@@ -55,6 +55,27 @@ if (nosoUsdtPrice !== null) {
   // Call the functions to calculate rewards and values when prices are fetched
   calculateRewardsAndValues();
 });
+// Function to make the API call and update the DOM for mn-lock-funds
+async function fetchLockFunds() {
+  try {
+    const response = await fetch('https://api.nosocoin.com/info/locked_supply');
+    const mnLockFunds = await response.text();
+
+    if (!isNaN(mnLockFunds)) {
+      const formattedMnLockFunds = parseFloat((parseInt(mnLockFunds) / 1000000).toFixed(1));
+      document.getElementById('mn-lock-funds').innerText = formattedMnLockFunds + 'M';
+      return mnLockFunds;
+    } else {
+      throw new Error('mn-lock-funds data not a valid number.');
+    }
+  } catch (error) {
+    console.error('Error fetching mn-lock-funds:', error);
+  }
+}
+
+
+// Call the fetchLockFunds function
+fetchLockFunds();
 
 async function calculateRewardsAndValues() {
   const reward = parseFloat(document.getElementById('node-reward').innerText);
@@ -129,16 +150,20 @@ async function fetchDataForBlockHeight(blockHeight) {
     blockheightLink.textContent = blockHeight;
     blockheightElement.appendChild(blockheightLink);
 
-    // Node Locked Funds
-    const nodeCount = data.result[0].count;
-    const nodeFundsLocked = parseInt(nodeCount * 10500) / 1000000;
-    document.getElementById('node-funds-locked').innerText = nodeFundsLocked.toFixed(2) + 'M';
+
+// Node Locked Funds
+const nodeCount = data.result[0].count;
+const nodeFundsLocked = parseFloat((nodeCount * 10500) / 1000000).toFixed(1);
+document.getElementById('node-funds-locked').innerText = nodeFundsLocked + 'M';
+
+
 
     // Calculate and set the earning-percentage
     const totalReward = parseFloat(data.result[0].total * 0.00000001);
     const activeNodes = parseInt(data.result[0].count);
     const earningPercentage = (totalReward / (totalReward * activeNodes)) * 100;
     document.getElementById('earning-percentage').innerText = earningPercentage.toFixed(2) + '%';
+
 
     // Call the function to calculate and display mn-inactive-nodes
     const mnLockCount = parseFloat(document.getElementById('mn-lock-count').innerText);
