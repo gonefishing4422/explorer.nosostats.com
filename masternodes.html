@@ -162,7 +162,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                  background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -312,7 +312,8 @@ crossorigin="anonymous">
             <div><input id="searchInput" onkeyup="searchTable()" placeholder="  Search.."
 
                 type="text"> </div>
-          </div><br>
+          </div>
+          <br>
           <div class="row1">
             <div class="custom-table" id="tableContainer">
               <div class="row header priority-1">
@@ -332,31 +333,9 @@ crossorigin="anonymous">
       </div>
     </div>
     (<span id="node-count"></span>)
-     <script>
-async function fetchNosoUsdtPrice() {  try {
-    const response = await fetch("https://api.nosocoin.com/info/price?range=day&interval=1");    if (response.ok) {
-      const data = await response.json();      return data[0].price; // Assuming the first element contains the latest price
-    } else {      throw new Error("Failed to fetch NOSO/USDT price");
-    }  } catch (error) {
-    console.error("Error fetching NOSO/USDT price:", error);    return null;
-  }}
-async function fetchNosoBtcPrice() {
-  try {    const response = await fetch('https://tradeogre.com/api/v1/markets');
-    if (response.ok) {      const data = await response.json();
-      const btcUsdtAsk = data.find(market => market.hasOwnProperty("BTC-USDT"))["BTC-USDT"]["ask"];      const nosoUsdtPrice = await fetchNosoUsdtPrice();
-      return (nosoUsdtPrice / btcUsdtAsk).toFixed(8); // Calculate NOSO/BTC price    } else {
-      throw new Error("Failed to fetch NOSO/BTC price");    }
-  } catch (error) {    console.error("Error fetching NOSO/BTC price:", error);
-    return null;  }
-}
-// Example usage:fetchNosoUsdtPrice().then(nosoUsdtPrice => {
-  if (nosoUsdtPrice !== null) {    document.getElementById("noso-usdt-price").innerText = nosoUsdtPrice;
-  }});
-fetchNosoBtcPrice().then(nosoBtcPrice => {
-  if (nosoBtcPrice !== null) {    document.getElementById("noso-btc-price").innerText = nosoBtcPrice;
-  }});
-</script>
-    <!-- JavaScript -->
+    <script>
+
+</script> <!-- JavaScript -->
     <!-- JavaScript -->
     <!--scripts for navbar hamburger below-->
     <script src="js/jquery-1.10.2.js"></script>
