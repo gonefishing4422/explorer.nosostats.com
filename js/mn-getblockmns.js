@@ -20,7 +20,8 @@ async function fetchNosoBtcPrice() {
       const data = await response.json();
       const btcUsdtAsk = data.find(market => market.hasOwnProperty("BTC-USDT"))["BTC-USDT"]["ask"];
       const nosoUsdtPrice = await fetchNosoUsdtPrice();
-      return (nosoUsdtPrice / btcUsdtAsk).toFixed(8); // Calculate NOSO/BTC price
+      const nosoBtcPrice = (nosoUsdtPrice / btcUsdtAsk).toExponential(4); // Calculate NOSO/BTC price and convert to scientific notation with 4 decimal places
+      return nosoBtcPrice;
     } else {
       throw new Error("Failed to fetch NOSO/BTC price");
     }
@@ -30,17 +31,18 @@ async function fetchNosoBtcPrice() {
   }
 }
 
+
 document.addEventListener("DOMContentLoaded", async function () {
   const nosoUsdtPriceElement = document.getElementById("noso-usdt-price");
   const nosoBtcPriceElement = document.getElementById("noso-btc-price");
+const nosoUsdtPrice = await fetchNosoUsdtPrice();
+if (nosoUsdtPrice !== null) {
+  const nosoUsdtLastPrice = parseFloat(nosoUsdtPrice); // Assigning the fetched price for further use
+  nosoUsdtPriceElement.innerText = nosoUsdtLastPrice.toFixed(2); // Format Noso/USDT value to display only two decimal places
+} else {
+  nosoUsdtPriceElement.innerText = "Failed to fetch NOSO/USDT price.";
+}
 
-  const nosoUsdtPrice = await fetchNosoUsdtPrice();
-  if (nosoUsdtPrice !== null) {
-    nosoUsdtPriceElement.innerText = nosoUsdtPrice;
-    const nosoUsdtLastPrice = parseFloat(nosoUsdtPrice); // Assigning the fetched price for further use
-  } else {
-    nosoUsdtPriceElement.innerText = "Failed to fetch NOSO/USDT price.";
-  }
 
   const nosoBtcPrice = await fetchNosoBtcPrice();
   if (nosoBtcPrice !== null) {
@@ -69,11 +71,14 @@ async function calculateRewardsAndValues() {
   document.getElementById('node-value-usdt').textContent = (10500 * nosoUsdtLastPrice).toFixed(2);
 
   // Calculations using NOSO/BTC price
-  document.getElementById('node-24hr-reward-btc').textContent = (reward * 144 * nosoBtcLastPrice).toFixed(8);
-  document.getElementById('node-7day-reward-btc').textContent = (reward * 1008 * nosoBtcLastPrice).toFixed(8);
-  document.getElementById('node-30day-reward-btc').textContent = (reward * 4320 * nosoBtcLastPrice).toFixed(8);
-  document.getElementById('node-365day-reward-btc').textContent = (reward * 52560 * nosoBtcLastPrice).toFixed(8);
-  document.getElementById('node-value-btc').textContent = (10500 * nosoBtcLastPrice).toFixed(8);
+// Calculate and set the values for BTC-related IDs
+
+document.getElementById('node-24hr-reward-btc').textContent = (reward * 144 * nosoBtcLastPrice).toExponential(4);
+document.getElementById('node-7day-reward-btc').textContent = (reward * 1008 * nosoBtcLastPrice).toExponential(4);
+document.getElementById('node-30day-reward-btc').textContent = (reward * 4320 * nosoBtcLastPrice).toExponential(4);
+document.getElementById('node-365day-reward-btc').textContent = (reward * 52560 * nosoBtcLastPrice).toExponential(4);
+document.getElementById('node-value-btc').textContent = (10500 * nosoBtcLastPrice).toExponential(4);
+
 }
 
 // Function to update the URL with the new blockHeight value
