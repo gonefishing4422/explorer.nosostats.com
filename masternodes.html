@@ -175,7 +175,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                   background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -232,6 +232,44 @@ crossorigin="anonymous">
           </div>
         </div>
         <!-- /.navbar-collapse --> </nav>
+      <div id="page-wrapper">
+        <div class="rowsearch">
+          <div class="col-lg-12">
+            <!-- /.Top row search --> <br>
+            <div class="exprow">
+              <form id="block-form" action="getblockinfo.html?blockheight" method="get"
+
+                style="display: none;"> <input id="block-search" name="blockheight"
+
+                  placeholder="Search Block Number" type="search"> <button type="submit">Search
+                  Block</button> </form>
+              <form id="address-form" action="getaddressbalance.html?address" method="get"
+
+                style="display: none;"> <input id="address-search" name="address"
+
+                  placeholder="Search Address" type="search"> <button type="submit">Search
+                  Address</button> </form>
+              <form id="alias-form" action="getaddressbalance.html?alias" method="get"
+
+                style="display: none;"> <input id="alias-search" name="address"
+
+                  placeholder="Search Alias" type="search"> <button type="submit">Search
+                  Alias</button> </form>
+              <form id="order-form" action="getordersinfo.html?orderid" method="get"
+
+                style="display: none;"> <input id="order-search" name="orderid"
+
+                  placeholder="Search Order ID" type="search"> <button type="submit">Search
+                  Order</button></form>
+              <div class="search1-wrapper"> <input id="search" placeholder="Block, Address, OrderId, or A-Alias "
+
+                  type="search"> <button type="submit1" onclick="search()"></button>
+              </div>
+              <!-- Results will be displayed on Explorer page --> </div>
+            <br>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-6 ">
           <div class="panel-heading">
@@ -249,8 +287,9 @@ crossorigin="anonymous">
                   class="badge"><span class="mn-active" id="mn-active">
                     <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
                   </span></span></span> <span class="list-group-item">Inactive
-                <span class="badge"> <span class="mn-inactive" id="mn-inactive"><div class="mn-spinner" style="width: 15px; height: 15px;"></div></span></span></span>
-              <br>
+                <span class="badge"> <span class="mn-inactive" id="mn-inactive">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <br>
               <b><font color="darkgray">Rewards</font></b><br>
               <span class="list-group-item">Total Reward <span class="badge"><span
 
@@ -299,8 +338,8 @@ crossorigin="anonymous">
                   BTC</span></span> <span class="list-group-item">Locked
                 Collateral<span class="badge"><span id="node-funds-locked">0</span>
                   Active | <span id="mn-lock-funds">0</span> Enabled</span></span>
-              <span class="list-group-item">Collateral %<span class="badge">42%</span>
-              </span> </div>
+              <span class="list-group-item">Node Collateral Supply
+                Percentage<span class="badge">42%</span> </span> </div>
             <font color="white">
               <div class="text-right"> </div>
             </font></div>
@@ -345,6 +384,47 @@ crossorigin="anonymous">
     <font color="white"> (<span id="node-count"></span>)
       <script>
 
+function search() {
+  const input = document.getElementById('search').value.trim();
+if (/^\d{1,10}$/.test(input)) {
+  // Show block form and hide other forms
+  document.getElementById('block-form').style.display = '';
+  document.getElementById('address-form').style.display = 'none';
+  document.getElementById('alias-form').style.display = 'none';
+  document.getElementById('block-search').value = input;
+  document.getElementById('block-form').submit();
+} else if (/^[aA]-.*$/.test(input)) {
+  // Show alias form and hide other forms
+  document.getElementById('alias-form').style.display = '';
+  document.getElementById('block-form').style.display = 'none';
+  document.getElementById('address-form').style.display = 'none';
+  document.getElementById('alias-search').value = input.substring(2);
+  document.getElementById('alias-form').submit();
+} else if (/^[a-zA-Z0-9]{1,31}$/.test(input)) {
+  // Show address form and hide other forms
+  document.getElementById('address-form').style.display = '';
+  document.getElementById('block-form').style.display = 'none';
+  document.getElementById('alias-form').style.display = 'none';
+  document.getElementById('address-search').value = input;
+  document.getElementById('address-form').submit();
+} else {
+  // Invalid input, hide all forms except for the new order form
+  document.getElementById('block-form').style.display = 'none';
+  document.getElementById('address-form').style.display = 'none';
+  document.getElementById('alias-form').style.display = 'none';
+  document.getElementById('order-form').style.display = '';
+  document.getElementById('order-search').value = input;
+  document.getElementById('order-form').submit();
+}
+}
+
+
+// Add event listener to search field to listen for "Enter" keypress
+document.getElementById('search').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    search();
+  }
+});
 </script> <!-- JavaScript -->
       <!-- JavaScript -->
       <!--scripts for navbar hamburger below-->
