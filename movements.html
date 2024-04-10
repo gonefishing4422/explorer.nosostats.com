@@ -34,6 +34,15 @@
     border: 1px solid #222222;
   
 }
+      .mn-cell {
+    flex: 1;
+    padding: 8px;
+    word-break: break-all;
+    color: darkgray;
+    text-align: center;
+    border: 1px solid #222222;
+  
+}
 @media screen and (max-width: 900px) {
     .row {
         flex-direction: column; /* Stack items vertically on small screens */
@@ -155,12 +164,113 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+   .order-table th, .order-table td {
+      border: 0px solid #ddd;
+      padding: 8px;
+      text-align: left;
+     color: white;
+    }
+    .order-table th {
+      background-color: #222222;
+    }
+   #spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    .spinner-hidden {
+      display: none;
+    }
+    }
+      
+/* CSS to style the table header cells */
+.order-table th {
+  background-color: ;
+  color: gray; /* Dark grey color */
+  padding: 8px;
+  text-align: center;
+  border: 0px solid #ddd;
+  max-width: 300px; /* Set max-width for header cells */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Display ellipsis for overflow text */
+}
+
+/* CSS to style the table data cells */
+.order-table td {
+  padding: 8px;
+  color: white;
+  text-align: center;
+  border: 0px solid #ddd;
+  max-width: 300px; /* Set max-width for data cells */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Display ellipsis for overflow text */
+}
+/* CSS for the spinner */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* CSS to hide the spinner when not needed */
+.spinner-hidden {
+  display: none;
+}
+/* Style for the block info table */
+.block-info-table {
+  color: white; /* Set font color to white */
+  width: 100%; /* Make table occupy full width */
+  border-collapse: collapse; /* Collapse table borders */
+}
+
+/* Style for the table header row */
+.block-info-table .header-row th {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px; /* Add padding to header cells */
+  text-align: center; /* Center align header text */
+  border-bottom: 2px solid white; /* Add bottom border */
+}
+
+/* Style for the table data row */
+.block-info-table .data-row td {
+  padding: 10px; /* Add padding to data cells */
+  text-align: center; /* Center align data text */
+  border-bottom: 1px solid white; /* Add bottom border */
+}
+
+/* Alternate row background color */
+.block-info-table tr:nth-child(even) {
+  background-color: #222; /* Dark background color */
+}
+
+/* Style for the label div */
+.block-info-table .label,
+.block-info-table .value {
+  display: block; /* Ensure each cell occupies full width */
+}
+
     </style>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Include Highcharts library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+
+integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+
 crossorigin="anonymous">
     </script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -173,15 +283,17 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                               background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                            background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header"> <button type="button" class="navbar-toggle"
+        <div class="navbar-header"> <button type="button" class="navbar-toggle"
+
             data-toggle="collapse" data-target=".navbar-ex1-collapse"> <span class="sr-only">Toggle
               navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-            <span class="icon-bar"></span> </button><a class="navbar-brand" href="explorer.html"><img
+            <span class="icon-bar"></span> </button><a class="navbar-brand" href="explorer.html"><img
+
               src="img/logo_clearbg.png" alt="nosologo" title="nosologo" style="width: 20px; height: 20px;">&nbsp;
             NOSO <span class="navbar-logo">Explorer</span> <font size="1px">Beta</font>
           </a> </div>
@@ -205,23 +317,33 @@ crossorigin="anonymous">
           <!-- /.navbar-top-right -->
           <div class="toprow">
             <ul class="nav navbar-nav navbar-right navbar-user">
-              <li><a href="qr.html"> <img src="img/qr.png" style="width: 17px; height: 16px;"
+              <li><a href="qr.html"> <img src="img/qr.png" style="width: 17px; height: 16px;"
+
                     alt="QR Scanner"></a> </li>
-              <li><a href="https://twitter.com/NosoCoin" target="_blank"> <img
-                    src="img/twitter_bird.png" style="width: 20px; height: 16px;"
+              <li><a href="https://twitter.com/NosoCoin" target="_blank"> <img
+
+                    src="img/twitter_bird.png" style="width: 20px; height: 16px;"
+
                     alt="Noso on Twitter"></a> </li>
-              <li><a href="https://discord.gg/weed5ePmfY" target="_blank"> <img
+              <li><a href="https://discord.gg/weed5ePmfY" target="_blank"> <img
+
                     src="img/discord.png" style="width: 24px; height: 22px;" alt="Noso on Discord"></a></li>
-              <li><a href="https://t.me/nosocoin" target="_blank"> <img src="img/telegram.png"
+              <li><a href="https://t.me/nosocoin" target="_blank"> <img src="img/telegram.png"
+
                     style="width: 24px; height: 23px;" alt="Noso on telegram"></a></li>
-              <li><a href="https://github.com/Noso-Project/" target="_blank"> <img
+              <li><a href="https://github.com/Noso-Project/" target="_blank"> <img
+
                     src="img/gh.png" style="width: 28px; height: 17px;" alt="Noso on Github"></a></li>
-              <li><a href="https://nosocoin.com/"> <img src="img/nosoN.png" style="width: 24px; height: 23px;"
+              <li><a href="https://nosocoin.com/"> <img src="img/nosoN.png" style="width: 24px; height: 23px;"
+
                     alt="Noso Website"></a></li>
-              <li><a href="https://docs.nosocoin.com/noso-developers-portal/rpc-connection/running-a-noso-json-rpc-node-for-development-utilizing-nosos-rest-api"
-                  target="_blank"> <img src="img/doc.png" style="width: 14px; height: 16px;"
+              <li><a href="https://docs.nosocoin.com/noso-developers-portal/rpc-connection/running-a-noso-json-rpc-node-for-development-utilizing-nosos-rest-api"
+
+                  target="_blank"> <img src="img/doc.png" style="width: 14px; height: 16px;"
+
                     alt="Noso Developers"></a></li>
-              <li><a href="https://api.nosocoin.com/" target="_blank"> <img src="img/api.png"
+              <li><a href="https://api.nosocoin.com/" target="_blank"> <img src="img/api.png"
+
                     style="width: 28px; height: 24px;" alt="Noso API"></a></li>
             </ul>
           </div>
@@ -232,23 +354,32 @@ crossorigin="anonymous">
           <div class="col-lg-12">
             <!-- /.Top row search --> <br>
             <div class="exprow">
-              <form id="block-form" action="getblockinfo.html?blockheight" method="get"
-                style="display: none;"> <input id="block-search" name="blockheight"
+              <form id="block-form" action="getblockinfo.html?blockheight" method="get"
+
+                style="display: none;"> <input id="block-search" name="blockheight"
+
                   placeholder="Search Block Number" type="search"> <button type="submit">Search
                   Block</button> </form>
-              <form id="address-form" action="getaddressbalance.html?address" method="get"
-                style="display: none;"> <input id="address-search" name="address"
+              <form id="address-form" action="getaddressbalance.html?address" method="get"
+
+                style="display: none;"> <input id="address-search" name="address"
+
                   placeholder="Search Address" type="search"> <button type="submit">Search
                   Address</button> </form>
-              <form id="alias-form" action="getaddressbalance.html?alias" method="get"
-                style="display: none;"> <input id="alias-search" name="address"
+              <form id="alias-form" action="getaddressbalance.html?alias" method="get"
+
+                style="display: none;"> <input id="alias-search" name="address"
+
                   placeholder="Search Alias" type="search"> <button type="submit">Search
                   Alias</button> </form>
-              <form id="order-form" action="getordersinfo.html?orderid" method="get"
-                style="display: none;"> <input id="order-search" name="orderid"
+              <form id="order-form" action="getordersinfo.html?orderid" method="get"
+
+                style="display: none;"> <input id="order-search" name="orderid"
+
                   placeholder="Search Order ID" type="search"> <button type="submit">Search
                   Order</button></form>
-              <div class="search1-wrapper"> <input id="search" placeholder="Block, Address, OrderId, or A-Alias "
+              <div class="search1-wrapper"> <input id="search" placeholder="Block, Address, OrderId, or A-Alias "
+
                   type="search"> <button type="submit1" onclick="search()"></button>
               </div>
               <!-- Results will be displayed on Explorer page --> </div>
@@ -262,10 +393,14 @@ crossorigin="anonymous">
             <h3 class="panel-title">&nbsp;Top </h3>
           </div>
           <div class="panel-body">
-            <div class="list-group"> <span class="list-group-item">1 <span class="badge"><span
-                    id="total-reward">0</span></span></span> <span class="list-group-item">2<span
-                  class="badge"><span id="node-reward">0</span></span>&nbsp;</span><span
-                class="list-group-item">3 <span class="badge">0</span></span> <span
+            <div class="list-group"> <span class="list-group-item">1 <span class="badge"><span
+
+                    id="total-reward">0</span></span></span> <span class="list-group-item">2<span
+
+                  class="badge"><span id="node-reward">0</span></span>&nbsp;</span><span
+
+                class="list-group-item">3 <span class="badge">0</span></span> <span
+
                 class="list-group-item">4<span class="badge"><span id="earning-percentage">0</span></span>
               </span> </div>
             <div class="text-right"> </div>
@@ -276,10 +411,14 @@ crossorigin="anonymous">
             <h3 class="panel-title">Top </h3>
           </div>
           <div class="panel-body1">
-            <div class="list-group"> <span class="list-group-item">1 <span class="badge"><span
-                    id="total-reward">0</span></span></span> <span class="list-group-item">2<span
-                  class="badge"><span id="node-reward">0</span></span>&nbsp;</span><span
-                class="list-group-item">3 <span class="badge">0</span></span> <span
+            <div class="list-group"> <span class="list-group-item">1 <span class="badge"><span
+
+                    id="total-reward">0</span></span></span> <span class="list-group-item">2<span
+
+                  class="badge"><span id="node-reward">0</span></span>&nbsp;</span><span
+
+                class="list-group-item">3 <span class="badge">0</span></span> <span
+
                 class="list-group-item">4<span class="badge"><span id="earning-percentage">0</span></span>
               </span> </div>
             <font color="white">
@@ -287,9 +426,18 @@ crossorigin="anonymous">
             </font></div>
           <font color="white"> </font></div>
         <font color="white"> </font></div>
+      <div class="row">
+        <div class="row">
+          <div id="orders-chart">
+            <div id="spinner" class="spinner-hidden"> </div>
+            <!-- Orders chart will be displayed here --> </div>
+          <!-- Results will be displayed here --> </div>
+      </div>
+      <br>
+      <br>
+      <br>
     </div>
-    <font color="white"> (<span id="node-count"></span>)
-      <script>
+    <script>
 
 function search() {
   const input = document.getElementById('search').value.trim();
@@ -333,11 +481,12 @@ document.getElementById('search').addEventListener('keypress', function (e) {
   }
 });
 </script> <!-- JavaScript -->
-      <!-- JavaScript -->
-      <!--scripts for navbar hamburger below-->
-      <script src="js/jquery-1.10.2.js"></script>
-      <script src="js/bootstrap.js"></script>
-      <!--scripts for navbar hamburger above-->
-      <!---charts--> </font>
+    <!-- JavaScript -->
+    <!--scripts for navbar hamburger below-->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/movements.js"></script>
+    <!--scripts for navbar hamburger above-->
+    <!---charts-->
   </body>
 </html>
