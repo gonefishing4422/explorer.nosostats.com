@@ -8,149 +8,6 @@
     <title>Noso Exporer</title>
     <style>
 
-
- 
-.container {
-    display: block; /* Change from display: table to display: block */
-    width: 100%;
-}
-
-.row {
-    display: flex; /* Change from display: table-row to display: flex */
-  
-}
-.mn-row {
-    display: flex; /* Change from display: table-row to display: flex */
-    
-}      
-
-
-.mn-cell {
-    flex: 1;
-    padding: 8px;
-    word-break: break-all;
-    color: darkgray;
-    text-align: center;
-    border: 1px solid #222222;
-  
-}
-      .mn-cell {
-    flex: 1;
-    padding: 8px;
-    word-break: break-all;
-    color: darkgray;
-    text-align: center;
-    border: 1px solid #222222;
-  
-}
-@media screen and (max-width: 900px) {
-    .row {
-        flex-direction: column; /* Stack items vertically on small screens */
-    }
-
-}
-        .header .mn-cell {
-            font-weight: bold;
-            background-color: #222222;
-      
-        }
-
-        #blockCount {
-            margin-bottom: 10px;
-        }
-        .badge1 {
-          display: inline-block;
-          min-width: 10px;
-          padding: 3px 7px;
-          font-size: 12px;
-          font-weight: bold;
-          line-height: 1;
-          color: #ffffff;
-          text-align: center;
-          white-space: nowrap;
-          vertical-align: baseline;
-          background-color: green;
-          border-radius: 10px;
-        }
-        .badge1.inactive {
-            background-color: #800020; /* Burgundy */
-            color: #ffffff; /* White text */
-        }
-
-        .badge1.active {
-            background-color: darkgreen; /* Green */
-            color: #ffffff; /* Black text */
-        }
-        .badge1.active:hover,
-        .badge1.active:focus {
-          color: #ffffff;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        .badge1:empty {
-          display: none;
-        }
-
-        a.badge1:hover,
-        a.badge1:focus {
-          color: #ffffff;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-      .btn .badge1 {
-        position: relative;
-        top: -1px;
-        
-      }
-
-      a.list-group-item.active > .badge1,
-      .nav-pills > .active > a > .badge1 {
-        color: #428bca;
-        background-color: #ffffff;
-      }
-
-      .nav-pills > li > a > .badge1 {
-        margin-left: 3px;
-      }
-        .sortable {
-            cursor: pointer;
-        }
-
-        .sorted-asc:after {
-            content: " ▲";
-        }
-
-        .sorted-desc:after {
-            content: " ▼";
-        }
-
-        /* Style for fixed table header */
-        .table-container {
-            overflow-y: auto;
-            max-height: 500px; /* Adjust the max-height as needed */
-        }
-
-        /* Optional: Hide scrollbar for better appearance */
-        .table-container::-webkit-scrollbar {
-            display: none;
-        }
-      .address-column {
-    min-width: 300px;
-      }
-        .mn-total {
-          color: #fbe04d;
-        }
-         .mn-active {
-          color: green;
-        }
-         .mn-inactive {
-          color: darkred;
-        }
-         .mn-block {
-          color: darkgrey;
-         
-        } 
    .mn-spinner {
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-left-color: #3498db;
@@ -164,35 +21,15 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
-   .order-table th, .order-table td {
-      border: 0px solid #ddd;
-      padding: 8px;
-      text-align: left;
-     color: white;
-    }
-    .order-table th {
-      background-color: #222222;
-    }
-   #spinner {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-    }
-    .spinner-hidden {
-      display: none;
-    }
-    }
       
 /* CSS to style the table header cells */
 .order-table th {
-  background-color: ;
+  background-color: #222222 ;
   color: gray; /* Dark grey color */
-  padding: 8px;
+  padding: 4px;
   text-align: center;
   border: 0px solid #ddd;
-  max-width: 300px; /* Set max-width for header cells */
+  max-width: 200px; /* Set max-width for header cells */
   white-space: nowrap; /* Prevent wrapping */
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Display ellipsis for overflow text */
@@ -200,11 +37,11 @@
 
 /* CSS to style the table data cells */
 .order-table td {
-  padding: 8px;
-  color: white;
+  padding: 4px;
+  color: gray;
   text-align: center;
   border: 0px solid #ddd;
-  max-width: 300px; /* Set max-width for data cells */
+  max-width: 235px; /* Set max-width for data cells */
   white-space: nowrap; /* Prevent wrapping */
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Display ellipsis for overflow text */
@@ -224,44 +61,13 @@
     transform: rotate(360deg);
   }
 }
+.badge-form {
+  width: 50px;
+  height: 50px;
+  margin-left:50px; /* Adjust margin as needed */
 
-/* CSS to hide the spinner when not needed */
-.spinner-hidden {
-  display: none;
-}
-/* Style for the block info table */
-.block-info-table {
-  color: white; /* Set font color to white */
-  width: 100%; /* Make table occupy full width */
-  border-collapse: collapse; /* Collapse table borders */
 }
 
-/* Style for the table header row */
-.block-info-table .header-row th {
-  font-weight: bold;
-  font-size: 14px;
-  padding: 10px; /* Add padding to header cells */
-  text-align: center; /* Center align header text */
-  border-bottom: 2px solid white; /* Add bottom border */
-}
-
-/* Style for the table data row */
-.block-info-table .data-row td {
-  padding: 10px; /* Add padding to data cells */
-  text-align: center; /* Center align data text */
-  border-bottom: 1px solid white; /* Add bottom border */
-}
-
-/* Alternate row background color */
-.block-info-table tr:nth-child(even) {
-  background-color: #222; /* Dark background color */
-}
-
-/* Style for the label div */
-.block-info-table .label,
-.block-info-table .value {
-  display: block; /* Ensure each cell occupies full width */
-}
 
     </style>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -283,7 +89,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                              background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -390,54 +196,87 @@ crossorigin="anonymous">
       <div class="row">
         <div class="col-lg-6 ">
           <div class="panel-heading">
-            <h3 class="panel-title">&nbsp;Top </h3>
+            <h3 class="panel-title"><i class="fa fa-exchange"></i> Coin
+              Movements 24H </h3>
           </div>
           <div class="panel-body">
-            <div class="list-group"> <span class="list-group-item">1 <span class="badge"><span
-
-                    id="total-reward">0</span></span></span> <span class="list-group-item">2<span
-
-                  class="badge"><span id="node-reward">0</span></span>&nbsp;</span><span
-
-                class="list-group-item">3 <span class="badge">0</span></span> <span
-
-                class="list-group-item">4<span class="badge"><span id="earning-percentage">0</span></span>
-              </span> </div>
-            <div class="text-right"> </div>
+            <div class="list-group"><span class="list-group-item">All Movements
+                <span class="badge"><span id="movements1">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Movements
+                over 100 coins <span class="badge"><span id="movements100">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Movements
+                over 1000 coins<span class="badge"><span id="movements1000">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">Movements
+                over 10000 coins <span class="badge"><span id="movements10000">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Total
+                coins moved in 24H<span class="badge"><span id="movementssum">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span> </div>
           </div>
         </div>
         <div class="col-lg-6 ">
           <div class="panel-heading">
-            <h3 class="panel-title">Top </h3>
+            <h3 class="panel-title"><i class="fa fa-circle-o"></i> Coin Reward
+              Schedule </h3>
           </div>
-          <div class="panel-body1">
-            <div class="list-group"> <span class="list-group-item">1 <span class="badge"><span
-
-                    id="total-reward">0</span></span></span> <span class="list-group-item">2<span
-
-                  class="badge"><span id="node-reward">0</span></span>&nbsp;</span><span
-
-                class="list-group-item">3 <span class="badge">0</span></span> <span
-
-                class="list-group-item">4<span class="badge"><span id="earning-percentage">0</span></span>
-              </span> </div>
+          <div class="panel-body">
+            <div class="list-group"> <span class="list-group-item">Total</span></div>
             <font color="white">
               <div class="text-right"> </div>
             </font></div>
-          <font color="white"> TOP COIN MOVEMENTS IN 24HRS</font></div>
-        <div id="spinner" class="spinner-hidden"> </div><br><br>
-        <font color="white"> </font></div>
+        </div>
+      </div>
       <div class="row">
-        <div class="row">
+        <div class="col-lg-6 ">
+          <div class="panel-heading">
+            <h3 class="panel-title"> <i class="fa fa-edit"></i> Query Setup </h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group"> <span class="list-group-item">Enter
+                Starting BlockHeight <span class="badge">
+              
+                  <form id="blockSearchForm"> <label for="blockNumberInput"></label>
+                    <input id="blockNumberInput" name="blockNumberInput" required=""
+
+                      type="number"> <button type="submit">Search</button> </form>
+                </span></span> <span class="list-group-item">Select Block Search Interval<span
+
+                  class="badge-form">
+                  <select id="timeRange">
+                    <option value="hour">Hour</option>
+                    <option value="day">Day</option>
+                    <option value="week">Week</option>
+                  </select>
+                </span> </span> </div>
+          </div>
+        </div>
+        <div class="col-lg-6 ">
+          <div class="panel-heading">
+            <h3 class="panel-title"> <i class="fa fa-road"></i> Coin Production
+              Schedule</h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group"> <span class="list-group-item"> </span> </div>
+            <font color="white">
+              <div class="text-right"> </div>
+            </font></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="spinner" class="spinner-hidden"> </div>
+          <br>
+          <br>
+          <font color="white"> </font>
           <div id="orders-chart">
             <!-- Orders chart will be displayed here --> </div>
           <!-- Results will be displayed here --> </div>
       </div>
-      <br>
-      <br>
-      <br>
-    </div>
-    <script>
+      <script>
 
 function search() {
   const input = document.getElementById('search').value.trim();
@@ -481,12 +320,13 @@ document.getElementById('search').addEventListener('keypress', function (e) {
   }
 });
 </script> <!-- JavaScript -->
-    <!-- JavaScript -->
-    <!--scripts for navbar hamburger below-->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/movements.js"></script>
-    <!--scripts for navbar hamburger above-->
-    <!---charts-->
+      <!-- JavaScript -->
+      <!--scripts for navbar hamburger below-->
+      <script src="js/jquery-1.10.2.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/movements.js"></script>
+      <script src="js/movements2.js"></script>
+      <!--scripts for navbar hamburger above-->
+      <!---charts--> </div>
   </body>
 </html>
