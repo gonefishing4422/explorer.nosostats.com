@@ -21,6 +21,49 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+/* Styles for header row */
+.header-row {
+  display: flex;
+  background-color: #222222;
+  color: white;
+}
+
+/* Styles for header items */
+.header {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+/* Styles for values */
+.mn-row {
+  display: flex;
+}
+
+/* Styles for value cells */
+.mn-cell {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+@media screen and (max-width: 900px) {
+    .row {
+        flex-direction: column; /* Stack items vertically on small screens */
+    }
+
+}
+        .header .mn-cell {
+            font-weight: bold;
+            background-color: #222222;
+      
+        }
+
+      
+      
+      
       
 /* CSS to style the table header cells */
 .order-table th {
@@ -29,7 +72,7 @@
   padding: 4px;
   text-align: center;
   border: 0px solid #ddd;
-  max-width: 200px; /* Set max-width for header cells */
+  max-width: 3048px; /* Set max-width for header cells */
   white-space: nowrap; /* Prevent wrapping */
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Display ellipsis for overflow text */
@@ -41,7 +84,7 @@
   color: gray;
   text-align: center;
   border: 0px solid #ddd;
-  max-width: 235px; /* Set max-width for data cells */
+  max-width: 3048px; /* Set max-width for data cells */
   white-space: nowrap; /* Prevent wrapping */
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Display ellipsis for overflow text */
@@ -68,6 +111,118 @@
 
 }
 
+  /* Styling for the form */
+  #blockSearchForm {
+    background-color: #222222;
+    color: gray;
+    width:200px;
+  }
+
+  /* Styling for the input[type="number"] */
+  #blockNumberInput {
+    background-color: #222222;
+    color: gray;
+    border: 1px solid gray;
+    padding: 1px;
+    width:160px;
+  }
+
+      /* Hide the default number input spinners */
+#blockSearchForm input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+#blockSearchForm input[type="number"]::-webkit-inner-spin-button,
+#blockSearchForm input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* WebKit/Blink */
+    margin: 0; /* Optional: remove margin */
+}
+
+/* Style for the custom number input spinners */
+#blockSearchForm input[type="number"] {
+    background-color: #222222; /* Set the background color */
+    color: gray; /* Set the color */
+    padding-right: 1.5em; /* Add space for the custom spinner icon */
+    padding-left: 1.5em; /* Add space for the custom spinner icon */
+}
+
+/* Custom spinner icons */
+#blockSearchForm input[type="number"]::before {
+    content: "\25B2"; /* Unicode for an upwards arrow */
+    font-size: 0.8em; /* Adjust size as needed */
+    position: absolute;
+    right: 5px; /* Adjust position as needed */
+    top: 0.3em; /* Adjust position as needed */
+}
+
+#blockSearchForm input[type="number"]::after {
+    content: "\25BC"; /* Unicode for a downwards arrow */
+    font-size: 0.8em; /* Adjust size as needed */
+    position: absolute;
+    right: 5px; /* Adjust position as needed */
+    bottom: 0.3em; /* Adjust position as needed */
+}
+
+
+  /* Custom styling for the spinners */
+  #blockNumberInput::before {
+    content: '\25B2'; /* Up arrow */
+    display: block;
+    position: absolute;
+    right: 6px;
+    top: 8px;
+    color: gray;
+  }
+
+  #blockNumberInput::after {
+    content: '\25BC'; /* Down arrow */
+    display: block;
+    position: absolute;
+    right: 6px;
+    bottom: 8px;
+    color: gray;
+  }
+  /* Styling for the select element */
+  #timeRange {
+    background-color: #222222;
+    color: gray;
+    border: 0px solid gray;
+    padding: 1px; 
+  }
+
+  /* Styling for the select options */
+  #timeRange option {
+    background-color: #222222;
+    color: gray;
+  }
+ /* Styling for the table */     
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 2px;
+    border-bottom: 0px solid #ddd;
+    text-align: left;
+  }
+
+  th {
+    background-color: black;
+    border-bottom: 0px solid #ddd;
+  }
+
+  /* Change the background color of even rows */
+  tr:nth-child(even) {
+    background-color: transparent;
+  }
+
+  /* Change the background color of odd rows */
+  tr:nth-child(odd) {
+    background-color: #222222;
+  }
+
+
 
     </style>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -89,7 +244,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -224,57 +379,166 @@ crossorigin="anonymous">
               Schedule </h3>
           </div>
           <div class="panel-body">
-            <div class="list-group"> <span class="list-group-item">Total</span></div>
+            <div class="list-group"> <span class="list-group-item">
+                <table>
+                  <thead>
+                    <tr>
+                      <th class="priority-1">From</th>
+                      <th class="priority-1">To</th>
+                      <th class="priority-6">Blocks</th>
+                      <th class="priority-6">Reward/Block</th>
+                      <th class="priority-6">Coins/period</th>
+                      <th class="priority-1">Total supply</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="priority-1">0</td>
+                      <td class="priority-1">1</td>
+                      <td class="priority-6">1</td>
+                      <td class="priority-6">10303.90730000</td>
+                      <td class="priority-6">10303.90730000</td>
+                      <td class="priority-1">10303.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">1</td>
+                      <td class="priority-1">209999</td>
+                      <td class="priority-6">209999</td>
+                      <td class="priority-6">50.00000000</td>
+                      <td class="priority-6">10499950.00000000</td>
+                      <td class="priority-1">10510253.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">210000</td>
+                      <td class="priority-1">419999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">25.00000000</td>
+                      <td class="priority-6">5250000.00000000</td>
+                      <td class="priority-1">15760253.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">420000</td>
+                      <td class="priority-1">629999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">12.50000000</td>
+                      <td class="priority-6">2625000.00000000</td>
+                      <td class="priority-1">18385253.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">630000</td>
+                      <td class="priority-1">839999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">6.25000000</td>
+                      <td class="priority-6">1312500.00000000</td>
+                      <td class="priority-1">19697753.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">840000</td>
+                      <td class="priority-1">1049999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">3.12500000</td>
+                      <td class="priority-6">656250.00000000</td>
+                      <td class="priority-1">20354003.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">1050000</td>
+                      <td class="priority-1">1259999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">1.56250000</td>
+                      <td class="priority-6">326125.00000000</td>
+                      <td class="priority-1">20682128.90730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">1260000</td>
+                      <td class="priority-1">1469999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">0.78125000</td>
+                      <td class="priority-6">164062.50000000</td>
+                      <td class="priority-1">20846191.40730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">1470000</td>
+                      <td class="priority-1">1679999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">0.39062500</td>
+                      <td class="priority-6">82031.25000000</td>
+                      <td class="priority-1">20928222.65730000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">1680000</td>
+                      <td class="priority-1">1889999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">0.19531250</td>
+                      <td class="priority-6">41015.62500000</td>
+                      <td class="priority-1">20969238.28230000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">1890000</td>
+                      <td class="priority-1">2099999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">0.09765625</td>
+                      <td class="priority-6">20507.81250000</td>
+                      <td class="priority-1">20969746.09480000</td>
+                    </tr>
+                    <tr>
+                      <td class="priority-1">2100000</td>
+                      <td class="priority-1">2309999</td>
+                      <td class="priority-6">210000</td>
+                      <td class="priority-6">0.04882812</td>
+                      <td class="priority-6">10253.90520000</td>
+                      <td class="priority-1">21000000.00000000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </span></div>
             <font color="white">
               <div class="text-right"> </div>
             </font></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6 ">
-          <div class="panel-heading">
-            <h3 class="panel-title"> <i class="fa fa-edit"></i> Query Setup </h3>
-          </div>
-          <div class="panel-body">
-            <div class="list-group"> <span class="list-group-item">Enter
-                Starting BlockHeight <span class="badge">
-              
-                  <form id="blockSearchForm"> <label for="blockNumberInput"></label>
-                    <input id="blockNumberInput" name="blockNumberInput" required=""
-
-                      type="number"> <button type="submit">Search</button> </form>
-                </span></span> <span class="list-group-item">Select Block Search Interval<span
-
-                  class="badge-form">
-                  <select id="timeRange">
-                    <option value="hour">Hour</option>
-                    <option value="day">Day</option>
-                    <option value="week">Week</option>
-                  </select>
-                </span> </span> </div>
-          </div>
-        </div>
         <div class="col-lg-6 ">
           <div class="panel-heading">
             <h3 class="panel-title"> <i class="fa fa-road"></i> Coin Production
               Schedule</h3>
           </div>
           <div class="panel-body">
-            <div class="list-group"> <span class="list-group-item"> </span> </div>
-            <font color="white">
-              <div class="text-right"> </div>
-            </font></div>
+            <div class="list-group"> <span class="list-group-item"> <canvas id="myChart"
+
+                  width="400" height="200"></canvas> </span> </div>
+          </div>
+        </div>
+        <div class="col-lg-6 ">
+          <div class="panel-heading">
+            <h3 class="panel-title"> <i class="fa fa-edit"></i> Query Setup </h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group"> <span class="list-group-item">Enter
+                Starting BlockHeight and Search Interval <br>
+                <br>
+                <select id="timeRange">
+                  <option value="hour">Hour</option>
+                  <option value="day">Day</option>
+                  <option value="week">Week</option>
+                </select>
+                <form id="blockSearchForm"> <label for="blockNumberInput"></label>
+                  <input id="blockNumberInput" name="blockNumberInput" required=""
+
+                    type="number"> <button type="submit">Search</button> </form>
+              </span></div>
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-12">
-          <div id="spinner" class="spinner-hidden"> </div>
-          <br>
-          <br>
-          <font color="white"> </font>
-          <div id="orders-chart">
-            <!-- Orders chart will be displayed here --> </div>
-          <!-- Results will be displayed here --> </div>
+        <center>
+          <div class="col-lg-12"> <font color="grey"> Top Orders for Interval<br>
+              <br>
+            </font>
+            <div id="orders-chart">
+              <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+            </div>
+            <!-- Results will be displayed here --> </div>
+        </center>
       </div>
       <script>
 
@@ -319,7 +583,52 @@ document.getElementById('search').addEventListener('keypress', function (e) {
     search();
   }
 });
-</script> <!-- JavaScript -->
+</script> <script>
+        
+   // Data from the provided table
+  var blocks = [1, 209999, 420000, 630000, 840000, 1050000, 1260000, 1470000, 1680000, 1890000, 2100000];
+  var totalSupply = [10303.9073, 10510253.9073, 15760253.9073, 18385253.9073, 19697753.9073, 20354003.9073, 20682128.9073, 20846191.4073, 20928222.6573, 20969238.2823, 20969746.0948];
+
+  // Convert blocks to years
+  var blocksYears = blocks.map(block => {
+    // Assuming block 0 happened in 2021
+    var year = 2021 + (block * 10 / (365 * 24 * 6));
+    return Math.floor(year);
+  });
+
+  // Chart configuration
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: blocksYears,
+      datasets: [{
+        label: 'Total Supply Over Time',
+        data: totalSupply,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Years'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Total Supply'
+          },
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script><!-- JavaScript -->
       <!-- JavaScript -->
       <!--scripts for navbar hamburger below-->
       <script src="js/jquery-1.10.2.js"></script>
