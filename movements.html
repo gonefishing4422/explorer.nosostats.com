@@ -244,7 +244,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -375,8 +375,8 @@ crossorigin="anonymous">
         </div>
         <div class="col-lg-6 ">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-circle-o"></i> Coin Reward
-              Schedule </h3>
+            <h3 class="panel-title"><i class="fa fa-circle-o"></i> Coin
+              Production Schedule </h3>
           </div>
           <div class="panel-body">
             <div class="list-group"> <span class="list-group-item">
@@ -499,8 +499,8 @@ crossorigin="anonymous">
       <div class="row">
         <div class="col-lg-6 ">
           <div class="panel-heading">
-            <h3 class="panel-title"> <i class="fa fa-road"></i> Coin Production
-              Schedule</h3>
+            <h3 class="panel-title"> <i class="fa fa-road"></i> Coin
+              Supply Over Time</h3>
           </div>
           <div class="panel-body">
             <div class="list-group"> <span class="list-group-item"> <canvas id="myChart"
@@ -525,7 +525,9 @@ crossorigin="anonymous">
                   <input id="blockNumberInput" name="blockNumberInput" required=""
 
                     type="number"> <button type="submit">Search</button> </form>
-              </span></div>
+                <br>
+                Larger intervals can take up to 40 seconds to show results.
+                Please be patient. </span></div>
           </div>
         </div>
       </div>
@@ -539,8 +541,20 @@ crossorigin="anonymous">
             </div>
             <!-- Results will be displayed here --> </div>
         </center>
-      </div>
-      <script>
+        <div class="exprow">
+          <div><br>
+            <br>
+            <br>
+            <br>
+            <div class="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="img/logo_clearbg.png"
+
+                alt="nosologo" title="nosologo" style="width: 15px; height: 15px;">&nbsp;;<font
+
+                size="1px" color="#bbb">Powered by NOSO Blockchain&nbsp; |
+                &nbsp; Built by the NOSO Community</font> </div>
+          </div>
+        </div>
+        <script>
 
 function search() {
   const input = document.getElementById('search').value.trim();
@@ -629,13 +643,14 @@ document.getElementById('search').addEventListener('keypress', function (e) {
     }
   });
 </script><!-- JavaScript -->
-      <!-- JavaScript -->
-      <!--scripts for navbar hamburger below-->
-      <script src="js/jquery-1.10.2.js"></script>
-      <script src="js/bootstrap.js"></script>
-      <script src="js/movements.js"></script>
-      <script src="js/movements2.js"></script>
-      <!--scripts for navbar hamburger above-->
-      <!---charts--> </div>
+        <!-- JavaScript -->
+        <!--scripts for navbar hamburger below-->
+        <script src="js/jquery-1.10.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/movements.js"></script>
+        <script src="js/movements2.js"></script>
+        <!--scripts for navbar hamburger above-->
+        <!---charts--> </div>
+    </div>
   </body>
 </html>

@@ -86,7 +86,6 @@ async function compileOrdersChart(startingBlockHeight, blockInterval) {
             const orderTable = document.createElement('table');
             orderTable.classList.add('order-table');
 
-
             // Create table header
             const headerRow = document.createElement('tr');
             ['Block', 'Timestamp', 'Transfers', 'Sender', 'Receiver', 'Amount', 'Fee', 'Reference', 'Order ID', 'Type'].forEach(headerText => {
@@ -101,40 +100,37 @@ async function compileOrdersChart(startingBlockHeight, blockInterval) {
             });
             orderTable.appendChild(headerRow);
 
-
-
-
             // Add orders to the table
-const MAX_LENGTH = 10;
+            const MAX_LENGTH = 10;
+            const allOrders = [];
+            blockOrders.forEach((blockOrder, index) => {
+                const blockNumber = startingBlockHeight + index; // Adjusted block number
+                const orders = blockOrder.result[0].orders;
 
-const allOrders = [];
-blockOrders.forEach((blockOrder, index) => {
-    const blockNumber = startingBlockHeight + index; // Adjusted block number
-    const orders = blockOrder.result[0].orders;
-
-    orders.forEach(order => {
-        if (order.fee > 0) {
-            const truncatedSender = order.sender.length > MAX_LENGTH ? order.sender.substring(0, 13) + '..' + order.sender.substring(order.sender.length - 5) : order.sender;
-            const truncatedReceiver = order.receiver.length > MAX_LENGTH ? order.receiver.substring(0, 13) + '..' + order.receiver.substring(order.receiver.length - 5) : order.receiver;
-            const truncatedOrderID = order.orderid.length > MAX_LENGTH ? order.orderid.substring(0, 30) + '..' + order.orderid.substring(order.orderid.length - 5) : order.orderid;
-            allOrders.push({
-                blockNumber,
-                orderID: truncatedOrderID,
-                timestamp: new Date(order.timestamp * 1000).toLocaleString(),
-                transfers: order.trfrs.length > MAX_LENGTH ? order.trfrs.substring(0, 15) + '..' : order.trfrs,
-                receiver: truncatedReceiver,
-                amount: order.amount * 0.00000001,
-                fee: order.fee * 0.00000001,
-                reference: order.reference.length > MAX_LENGTH ? order.reference.substring(0, 5) + '..' : order.reference,
-                sender: truncatedSender,
-                type: order.type.length > MAX_LENGTH ? order.type.substring(0, 15) + '..' : order.type
-            });
-        }
+                orders.forEach(order => {
+if (order.fee > 0) {
+    const truncatedSender = order.sender.length > MAX_LENGTH ? order.sender.substring(0, 13) + '..' + order.sender.substring(order.sender.length - 5) : order.sender;
+    const truncatedReceiver = order.receiver.length > MAX_LENGTH ? order.receiver.substring(0, 13) + '..' + order.receiver.substring(order.receiver.length - 5) : order.receiver;
+    const truncatedOrderID = order.orderid.length > MAX_LENGTH ? order.orderid.substring(0, 30) + '..' + order.orderid.substring(order.orderid.length - 5) : order.orderid;
+    allOrders.push({
+        blockNumber,
+        orderIDDefault: order.orderid, // Change orderID to orderIDDefault
+        orderID: truncatedOrderID, // Add truncated orderID field
+        timestamp: new Date(order.timestamp * 1000).toLocaleString(),
+        transfers: order.trfrs.length > MAX_LENGTH ? order.trfrs.substring(0, 15) + '..' : order.trfrs,
+        receiver: truncatedReceiver,
+        sender: truncatedSender,
+        receiverDefault: order.receiver, // Added original receiver value
+        senderDefault: order.sender, // Added original sender value
+        amount: order.amount * 0.00000001,
+        fee: order.fee * 0.00000001,
+        reference: order.reference.length > MAX_LENGTH ? order.reference.substring(0, 5) + '..' : order.reference,
+        type: order.type.length > MAX_LENGTH ? order.type.substring(0, 15) + '..' : order.type
     });
-});
+}
 
-
-
+                });
+            });
 
             // Sort orders by amount in descending order
             allOrders.sort((a, b) => b.amount - a.amount);
@@ -169,12 +165,12 @@ blockOrders.forEach((blockOrder, index) => {
                     row.appendChild(transfersCell);
 
                     const senderCell = document.createElement('td');
-                    senderCell.innerHTML = `<a target="_blank" href="getaddressbalance.html?address=${order.sender}">${order.sender}</a>`;
+                    senderCell.innerHTML = `<a target="_blank" href="getaddressbalance.html?address=${order.senderDefault}">${order.sender}</a>`;
                     senderCell.classList.add('priority-1'); // Add class to sender
                     row.appendChild(senderCell);
 
                     const receiverCell = document.createElement('td');
-                    receiverCell.innerHTML = `<a target="_blank" href="getaddressbalance.html?address=${order.receiver}">${order.receiver}</a>`;
+                    receiverCell.innerHTML = `<a target="_blank" href="getaddressbalance.html?address=${order.receiverDefault}">${order.receiver}</a>`;
                     receiverCell.classList.add('priority-6'); // Add class to receiver
                     row.appendChild(receiverCell);
 
@@ -194,7 +190,7 @@ blockOrders.forEach((blockOrder, index) => {
                     row.appendChild(referenceCell);
 
                     const orderIDCell = document.createElement('td');
-                    orderIDCell.textContent = order.orderID;
+                    orderIDCell.innerHTML = `<a target="_blank" href="getordersinfo.html?orderid=${order.orderIDDefault}">${order.orderID}</a>`;
                     orderIDCell.classList.add('priority-6'); // Add class to orderID
                     row.appendChild(orderIDCell);
 
@@ -295,6 +291,7 @@ document.getElementById('blockSearchForm').addEventListener('submit', handleBloc
 
 // Initial call to compile orders chart with the default time range (e.g., Last hour)
 handleTimeRangeChange('hour'); // Initially set to last hour
+
 // Function to prepopulate the search input field with the current block height
 async function prepopulateSearchInput() {
     try {
