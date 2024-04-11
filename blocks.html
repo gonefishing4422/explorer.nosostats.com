@@ -158,7 +158,7 @@
       
 /* Style for the block info table */
 .block-info-table {
-  color: white; /* Set font color to white */
+  color: Grey; /* Set font color to white */
   width: 100%; /* Make table occupy full width */
   border-collapse: collapse; /* Collapse table borders */
 }
@@ -167,20 +167,20 @@
 .block-info-table .header-row th {
   font-weight: bold;
   font-size: 14px;
-  padding: 10px; /* Add padding to header cells */
+  padding: 5px; /* Add padding to header cells */
   text-align: center; /* Center align header text */
-  border-bottom: 2px solid white; /* Add bottom border */
+  border-bottom: 0px solid black; /* Add bottom border */
 }
 
 /* Style for the table data row */
 .block-info-table .data-row td {
-  padding: 10px; /* Add padding to data cells */
+  padding: 5px; /* Add padding to data cells */
   text-align: center; /* Center align data text */
-  border-bottom: 1px solid white; /* Add bottom border */
+  border-bottom: 1px solid black; /* Add bottom border */
 }
 
 /* Alternate row background color */
-.block-info-table tr:nth-child(even) {
+.block-info-table tr:nth-child(odd) {
   background-color: #222; /* Dark background color */
 }
 
@@ -209,7 +209,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -233,12 +233,12 @@ crossorigin="anonymous">
                 Blocks</a></li>
             <li><a href="movements.html"><i class="fa fa-exchange"></i> Coin
                 Movements</a></li>
-            <li><a href="addresses.html"><i class="fa fa-star"></i> Top
-                Addresses </a></li>
+            <!--<li><a href="addresses.html"><i class="fa fa-star"></i> Top
+                Addresses </a></li> -->
             <li><a href="masternodes.html"><i class="fa fa-globe"></i>
                 Masternodes</a></li>
-            <li><a href="chainstats.html"><i class="fa fa-bar-chart"></i> Chain
-                Statistics </a></li>
+            <!-- <li><a href="chainstats.html"><i class="fa fa-bar-chart"></i>
+                Chain Statistics </a></li> -->
             <li><a href="gvt.html"><i class="fa fa-gavel"></i> Governance</a></li>
           </ul>
           <!-- /.navbar-top-right -->
@@ -322,13 +322,18 @@ crossorigin="anonymous">
           <div class="panel-body">
             <div class="list-group"> <span class="list-group-item">Block Height<span
 
-                  class="badge"><span id="total-reward">158000</span></span></span>
-              <span class="list-group-item">Blocks Until Next Halving<span class="badge"><span
-
-                    id="node-reward">52500</span></span> </span><span class="list-group-item">Average
-                Block Size <span class="badge">2KB</span></span> <span class="list-group-item">Average
-                Coin Movement Size<span class="badge"><span id="earning-percentage">75</span></span>
-              </span> </div>
+                  class="badge"><span id="b-blockheight">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Orders in
+                last 24H<span class="badge"><span id="b-transactions24">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">Fees Paid
+                24H <span class="badge"><span id="b-fees24">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Coins
+                Minted 24H<span class="badge"><span id="b-coinsminted">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span> </div>
             <div class="text-right"> </div>
           </div>
         </div>
@@ -338,19 +343,22 @@ crossorigin="anonymous">
           </div>
           <div class="panel-body1">
             <div class="list-group"><span class="list-group-item">Time Since
-                Last Block <span class="badge"><span id="placeholder">10
-                    Minutes</span></span></span> <span class="list-group-item">Block
-                Spacing<span class="badge"><span id="node-reward">599 Seconds</span></span>
-              </span><span class="list-group-item">Transactions in last block<span
+                Last Block <span class="badge"><span id="b-timeelapsed">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Block
+                Spacing<span class="badge"><span id="node-reward">10 Minutes</span></span>
+              </span><span class="list-group-item">Orders in last block<span class="badge"><span
 
-                  class="badge">1</span></span> <span class="list-group-item">Blocks
+                    id="b-transactions">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Blocks
                 created in 24 hours<span class="badge"><span id="earning-percentage">144</span></span>
               </span> </div>
             <font color="white">
               <div class="text-right"> </div>
             </font></div>
           <font color="white"> </font></div>
-        <font color="white"> </font></div>
+      </div>
       <br>
       <div class="row">
         <div class="col-lg-12">
@@ -363,13 +371,11 @@ crossorigin="anonymous">
               <!-- Table data rows will be populated here -->
             </tbody>
           </table>
-         
           <!-- Results will be displayed here --> </div>
-  
       </div>
-                        <div class="button-container1"> <button id="backward-btn" onclick="goBack()">Previous
-                </button> <button id="backward-btn" onclick="goForward()">Next</button>
-            </div>
+      <div class="button-container1"> <button id="backward-btn" onclick="goBack()">Previous
+          </button> <button id="backward-btn" onclick="goForward()">Next</button>
+      </div>
     </div>
     <script>
 
@@ -422,6 +428,5 @@ document.getElementById('search').addEventListener('keypress', function (e) {
     <script src="js/blocks.js"></script>
     <!--scripts for navbar hamburger above-->
     <!---charts-->
-    
   </body>
 </html>

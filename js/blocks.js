@@ -55,19 +55,22 @@ async function goBack() {
     let currentBlock = parseInt(urlParams.get('blockheight'));
 
     // Calculate the block height for the previous 15 blocks
-    let targetBlock = Math.max(currentBlock - 10, 1);
+    let targetBlock = Math.max(currentBlock - 15, 1);
 
     // Fetch information for the previous 15 blocks
     const previousBlocksData = await Promise.all(
-      Array.from({ length: 10 }, (_, i) => fetchBlockInfo(targetBlock + i))
+      Array.from({ length: 15 }, (_, i) => fetchBlockInfo(targetBlock + i))
     );
 
     // Update the table with information for the previous 15 blocks
     updateTable(previousBlocksData.map(data => data.result[0]));
 
     // Update the URI block height to the highest block in the table
-    const highestBlock = Math.min(...previousBlocksData.map(data => data.result[0].number));
+    highestBlock = Math.min(...previousBlocksData.map(data => data.result[0].number));
     window.history.replaceState(null, null, `?blockheight=${highestBlock}`);
+
+    // Update the additional information based on the latest block
+    updateAdditionalInfo(previousBlocksData[0].result[0]);
   } catch (error) {
     console.error(error);
   }
@@ -82,18 +85,46 @@ async function goForward() {
 
     // Fetch information for the next 15 blocks starting from the highest block
     const nextBlocksData = await Promise.all(
-      Array.from({ length: 10 }, (_, i) => fetchBlockInfo(currentBlock + i + 1))
+      Array.from({ length: 15 }, (_, i) => fetchBlockInfo(currentBlock + i + 1))
     );
 
     // Update the table with information for the next 15 blocks
     updateTable(nextBlocksData.map(data => data.result[0]));
 
     // Update the URI block height to the highest block in the table
-    const highestBlock = Math.max(...nextBlocksData.map(data => data.result[0].number));
+    highestBlock = Math.max(...nextBlocksData.map(data => data.result[0].number));
     window.history.replaceState(null, null, `?blockheight=${highestBlock}`);
+
+    // Update the additional information based on the latest block
+    updateAdditionalInfo(nextBlocksData[14].result[0]);
   } catch (error) {
     console.error(error);
   }
+}
+
+// Function to update the additional information based on the latest block
+async function updateAdditionalInfo(block) {
+  document.getElementById('b-blockheight').textContent = block.number;
+  document.getElementById('b-transactions').textContent = block.totaltransactions;
+
+  // Calculate b-fees24 and b-coinsminted
+  let fees24 = 0;
+  let coinsMinted = 0;
+  let transactions24 = 0; // Total transactions for the last 144 blocks
+  for (let i = 0; i < 144; i++) {
+    fees24 += block.feespaid * 0.00000001;
+    coinsMinted += block.reward * 0.00000001;
+    transactions24 += block.totaltransactions;
+  }
+  document.getElementById('b-fees24').textContent = fees24.toFixed(8);
+  document.getElementById('b-coinsminted').textContent = coinsMinted.toFixed(8);
+  document.getElementById('b-transactions24').textContent = transactions24;
+
+  // Calculate time elapsed since the latest block end time
+  const latestBlockEndTime = new Date(block.timeend * 1000);
+  const currentTime = new Date();
+  const timeElapsed = Math.round((currentTime - latestBlockEndTime) / (1000 * 60)); // Convert to minutes and round
+  document.getElementById('b-timeelapsed').textContent = timeElapsed + " minutes";
 }
 
 // Function to handle fetching block info and populating the table
@@ -114,7 +145,7 @@ async function handleBlockInfo() {
 
     // Fetch information for the previous 14 blocks
     const previousBlocksData = await Promise.all(
-      Array.from({ length: 9 }, (_, i) => fetchBlockInfo(blockHeight - i - 1))
+      Array.from({ length: 14 }, (_, i) => fetchBlockInfo(blockHeight - i - 1))
     );
 
     // Combine current block data and previous block data
@@ -122,6 +153,9 @@ async function handleBlockInfo() {
 
     // Update the table with information for the current block and the previous 14 blocks
     updateTable(blockData.map(data => data.result[0]));
+
+    // Update the additional information based on the latest block
+    updateAdditionalInfo(currentBlockData.result[0]);
   } catch (error) {
     console.error(error);
   }
@@ -141,9 +175,14 @@ function updateTable(blocks) {
   // Create row for headers
   const headerRow = document.createElement('tr');
   headerRow.classList.add('header-row');
-  headers.forEach(headerText => {
+  headers.forEach((headerText, index) => {
     const headerCell = document.createElement('th');
     headerCell.textContent = headerText;
+    if (index === 0 || index === 2 || index === 3) {
+      headerCell.classList.add('priority-1');
+    } else {
+      headerCell.classList.add('priority-6');
+    }
     headerRow.appendChild(headerCell);
   });
   tbody.appendChild(headerRow);
@@ -158,19 +197,24 @@ function updateTable(blocks) {
 
     // Add table cells for each column
     const cells = [
-      `<a href="getblockinfo.html?blockheight=${block.number}">${block.number}</a>`,
+      `<a href="getblockinfo.html?blockheight=${block.number}" class="${(headers[0] === 'Block Height' || headers[0] === 'End Time' || headers[0] === 'Total Transactions') ? 'priority-1' : 'priority-6'}">${block.number}</a>`,
       new Date(block.timestart * 1000).toLocaleString(),
-      new Date(block.timeend * 1000).toLocaleString(),
-      `<a href="getblockorders.html?blockheight=${block.number}">${block.totaltransactions}</a>`,
+      `<span class="${(headers[2] === 'Block Height' || headers[2] === 'End Time' || headers[2] === 'Total Transactions') ? 'priority-1' : 'priority-6'}">${new Date(block.timeend * 1000).toLocaleString()}</span>`,
+      `<a href="getblockorders.html?blockheight=${block.number}" class="${(headers[3] === 'Block Height' || headers[3] === 'End Time' || headers[3] === 'Total Transactions') ? 'priority-1' : 'priority-6'}">${block.totaltransactions}</a>`,
       block.hash,
       `<a href="getaddressbalance.html?address=${block.miner}">${block.miner}</a>`,
       (block.reward * 0.00000001).toFixed(8),
       (block.feespaid * 0.00000001).toFixed(8)
     ];
 
-    cells.forEach(cellData => {
+    cells.forEach((cellData, index) => {
       const cell = document.createElement('td');
       cell.innerHTML = cellData;
+      if (index === 0 || index === 2 || index === 3) {
+        cell.classList.add('priority-1');
+      } else {
+        cell.classList.add('priority-6');
+      }
       row.appendChild(cell);
     });
 
@@ -180,3 +224,7 @@ function updateTable(blocks) {
 
 // Call the function to handle block info retrieval and table population
 handleBlockInfo();
+
+// Event listeners for navigation buttons
+document.getElementById('backward-btn').addEventListener('click', goBack);
+document.getElementById('forward-btn').addEventListener('click', goForward);
