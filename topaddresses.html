@@ -17,22 +17,7 @@
 
 .row {
     display: flex; /* Change from display: table-row to display: flex */
-  
-}
-.mn-row {
-    display: flex; /* Change from display: table-row to display: flex */
-    
-}      
-
-
-.mn-cell {
-    flex: 1;
-    padding: 8px;
-    word-break: break-all;
-    color: darkgray;
-    text-align: center;
-    border: 1px solid #222222;
-  
+  color: white;
 }
 @media screen and (max-width: 900px) {
     .row {
@@ -40,108 +25,8 @@
     }
 
 }
-        .header .mn-cell {
-            font-weight: bold;
-            background-color: #222222;
-      
-        }
 
-        #blockCount {
-            margin-bottom: 10px;
-        }
-        .badge1 {
-          display: inline-block;
-          min-width: 10px;
-          padding: 3px 7px;
-          font-size: 12px;
-          font-weight: bold;
-          line-height: 1;
-          color: #ffffff;
-          text-align: center;
-          white-space: nowrap;
-          vertical-align: baseline;
-          background-color: green;
-          border-radius: 10px;
-        }
-        .badge1.inactive {
-            background-color: #800020; /* Burgundy */
-            color: #ffffff; /* White text */
-        }
-
-        .badge1.active {
-            background-color: darkgreen; /* Green */
-            color: #ffffff; /* Black text */
-        }
-        .badge1.active:hover,
-        .badge1.active:focus {
-          color: #ffffff;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        .badge1:empty {
-          display: none;
-        }
-
-        a.badge1:hover,
-        a.badge1:focus {
-          color: #ffffff;
-          text-decoration: none;
-          cursor: pointer;
-        }
-
-      .btn .badge1 {
-        position: relative;
-        top: -1px;
-        
-      }
-
-      a.list-group-item.active > .badge1,
-      .nav-pills > .active > a > .badge1 {
-        color: #428bca;
-        background-color: #ffffff;
-      }
-
-      .nav-pills > li > a > .badge1 {
-        margin-left: 3px;
-      }
-        .sortable {
-            cursor: pointer;
-        }
-
-        .sorted-asc:after {
-            content: " ▲";
-        }
-
-        .sorted-desc:after {
-            content: " ▼";
-        }
-
-        /* Style for fixed table header */
-        .table-container {
-            overflow-y: auto;
-            max-height: 500px; /* Adjust the max-height as needed */
-        }
-
-        /* Optional: Hide scrollbar for better appearance */
-        .table-container::-webkit-scrollbar {
-            display: none;
-        }
-      .address-column {
-    min-width: 300px;
-      }
-        .mn-total {
-          color: #fbe04d;
-        }
-         .mn-active {
-          color: green;
-        }
-         .mn-inactive {
-          color: darkred;
-        }
-         .mn-block {
-          color: darkgrey;
-         
-        } 
+     
    .mn-spinner {
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-left-color: #3498db;
@@ -155,6 +40,53 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+/* Style for the block info table */
+.block-info-table {
+  color: Grey; /* Set font color to white */
+  width: 100%; /* Make table occupy full width */
+  border-collapse: collapse; /* Collapse table borders */
+}
+
+/* Style for the table header row */
+.block-info-table .header-row th {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px; /* Add padding to header cells */
+  text-align: center; /* Center align header text */
+  border-bottom: 0px solid black; /* Add bottom border */
+}
+
+/* Style for the table data row */
+.block-info-table .data-row td {
+  padding: 5px; /* Add padding to data cells */
+  text-align: center; /* Center align data text */
+  border-bottom: 1px solid black; /* Add bottom border */
+}
+      
+/* Style for the table data row */
+.block-info-table tr {
+  padding: 5px; /* Add padding to data cells */
+  text-align: center; /* Center align data text */
+  border-bottom: 1px solid black; /* Add bottom border */
+}
+      
+/* Alternate row background color */
+.block-info-table tr:nth-child(even) {
+  background-color: #222; /* Dark background color */
+
+}
+
+/* Style for the label div */
+.block-info-table .label,
+.block-info-table .value {
+  display: block; /* Ensure each cell occupies full width */
+} 
+  .header-row {
+      font-weight: bold;
+      background-color: #222222;
+     text-align: center;
+      
+        } 
     </style>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <!-- Include Highcharts library -->
@@ -173,7 +105,7 @@ crossorigin="anonymous">
     <!-- Page Specific CSS -->
     <!--style-->
   </head>
-  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                             background-image: url(&quot;&quot;);">
+  <body color="#222222" style="                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         background-image: url(&quot;&quot;);">
     <div id="wrapper">
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -194,9 +126,9 @@ crossorigin="anonymous">
             <li><a href="blocks.html"> <i class="fa fa-th-large"></i> Blocks</a></li>
             <li><a href="movements.html"><i class="fa fa-exchange"></i> Coin
                 Movements</a></li>
-            <li><a href="topaddresses.html"><i class="fa fa-star"></i> Top
-                Addresses </a></li>
-            <li class="active"><a href="masternodes.html"><i class="fa fa-globe"></i>
+            <li class="active"><a href="topaddresses.html"><i class="fa fa-star"></i>
+                Top Addresses </a></li>
+            <li><a href="masternodes.html"><i class="fa fa-globe"></i>
                 Masternodes</a></li>
             <!-- <li><a href="chainstats.html"><i class="fa fa-bar-chart"></i>
                 Chain Statistics </a></li> -->
@@ -259,116 +191,99 @@ crossorigin="anonymous">
       <div class="row">
         <div class="col-lg-6 ">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-globe"></i> Masternode Count
-            </h3>
+            <h3 class="panel-title">&nbsp; <i class="fa fa-book "></i> SUPPLY
+              STATS</h3>
           </div>
           <div class="panel-body">
-            <div class="list-group"> <span class="list-group-item">Enabled <span
-                  class="mn-block"> [Block <span id="mn-block"></span>]</span>
-                <span class="badge"><span class="mn-total" id="mn-total">
+            <div class="list-group">
+              <h5><b>Locked Funds</b></h5>
+              <span class="list-group-item">Circulating Supply<span class="badge"><span
+                    id="circulatingsupply">
                     <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
-                  </span></span></span> <span class="list-group-item">Active <span
-                  class="badge"><span class="mn-active" id="mn-active">
+                  </span></span> </span> <span class="list-group-item">Node
+                Locked Funds<span class="badge"> <span id="lockedinmasternodes">
                     <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
-                  </span></span></span> <span class="list-group-item">Inactive
-                <span class="badge"> <span class="mn-inactive" id="mn-inactive">
+                  </span></span></span><span class="list-group-item">Percentage
+                Locked<span class="badge"> <span id="masternodesupplypercent">
                     <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
-                  </span></span></span> <br>
-              <b><font color="darkgray">Rewards</font></b><br>
-              <span class="list-group-item">Total Reward <span class="badge"><span
-                    id="total-reward">0</span></span></span> <span class="list-group-item">Individual
-                Reward <span class="badge"><span id="node-reward">0</span></span>
-              </span> <span class="list-group-item">Reward Frequency <span class="badge">10
-                  minutes</span></span> <span class="list-group-item">Earning
-                Percentage<span class="badge"><span id="earning-percentage">0</span></span>
-              </span> <br>
-              <span class="list-group-item">Noso Price<span class="badge">1 N |
-                  $<span id="noso-usdt-price">0</span> USD | <span id="noso-btc-price">0</span>
-                  BTC</span> </span> </div>
+                  </span> </span></span>
+              <h5><b>Project Funds</b></h5>
+              <span class="list-group-item">Project Development Funds<span class="badge"><span
+                    id="projectfunds">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">Project
+                NSIF Nodes<span class="badge"><span id="projectnodesbalance">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">Project
+                Funds Total<span class="badge"><span id="totalprojectfunds">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span> </div>
             <div class="text-right"> </div>
           </div>
         </div>
         <div class="col-lg-6 ">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-money"></i> Masternode
-              Collateral </h3>
+            <h3 class="panel-title"><i class="fa fa-search"></i> TOP ADDRESS
+              STATISTICS </h3>
           </div>
           <div class="panel-body1">
-            <div class="list-group"> <span class="list-group-item">Node
-                Collateral <span class="badge">10,500 NOSO</span></span><br>
-              <b><font color="darkgray">Earnings</font></b><br>
-              <span class="list-group-item"> Daily<span class="badge"><span id="node-24hr-reward">0</span>
-                  N | $<span id="node-24hr-reward-usdt">0</span> USD | <span id="node-24hr-reward-btc">0</span>
-                  BTC</span></span> <span class="list-group-item">Weekly <span
-                  class="badge"><span id="node-7day-reward">0</span> N | $<span
-                    id="node-7day-reward-usdt">0</span> USD | <span id="node-7day-reward-btc">0</span>
-                  BTC</span></span> <span class="list-group-item">Monthly <span
-                  class="badge"><span id="node-30day-reward">0</span> N | $<span
-                    id="node-30day-reward-usdt">0</span> USD | <span id="node-30day-reward-btc">0</span>
-                  BTC</span></span> <span class="list-group-item">Yearly <span
-                  class="badge"><span id="node-365day-reward">0</span> N | $<span
-                    id="node-365day-reward-usdt">0</span> USD | <span id="node-365day-reward-btc">0</span>
-                  BTC</span> </span><br>
-              <span class="list-group-item">Node Value<span class="badge">$<span
-                    id="node-value-usdt">0</span> USD | <span id="node-value-btc">0</span>
-                  BTC</span></span> <span class="list-group-item">Locked
-                Collateral<span class="badge"><span id="node-funds-locked">0</span>
-                  Active | <span id="mn-lock-funds">0</span> Enabled</span></span>
-              <span class="list-group-item">Node Collateral Supply Percentage<span
-                  class="badge">42%</span> </span> </div>
+            <div class="list-group">
+              <h5><b>Richest Address</b>&nbsp;&nbsp;<font size="1px"><span id="topaddresspercent">Loading..
+                    </span> of Supply </font></h5>
+              <span class="list-group-item">Address <span class="badge"><span id="richestaddress">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Balance<span
+                  class="badge"><span id="topaddressbalance">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span> </span> </span>
+              <h5><b>Coin Supply Concentration</b></h5>
+              <span class="list-group-item">Top 1-25<span class="badge"><span id="richestaddress20">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span> <span class="list-group-item">Top 26-50<span
+                  class="badge"><span id="richestaddress26_50">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span></span><span class="list-group-item">Top 51-75<span
+                  class="badge"><span id="richestaddress51_75">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">Top
+                76-100<span class="badge"><span id="richestaddress76_100">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">Top 100
+                Total<span class="badge"><span id="richestaddress1_100">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span><span class="list-group-item">All Other
+                Addresses<span class="badge"><span id="remainingsupply">
+                    <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+                  </span></span> </span></div>
             <font color="white">
               <div class="text-right"> </div>
             </font></div>
           <font color="white"> </font></div>
-        <font color="white"> </font></div>
-      <font color="white">
-        <div class="row">
-          <div class="col-lg-12 ">
-            <div class="panel panel-default">
-              <div class="panel-body"> </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-lg-3"></div>
-              <div class="col-lg-3"></div>
-              <div class="col-lg-3"></div>
-              <div class="col-lg-3"></div>
-              &nbsp;
-              <div><input id="searchInput" onkeyup="searchTable()" placeholder="  Search.."
-                  type="text"> </div>
-            </div>
-            <br>
-            <div class="row1">
-              <div class="custom-table" id="tableContainer">
-                <div class="row header priority-1">
-                  <div class="mn-cell priority-1 sortable address-column" data-column="NodeAddress">Address
-                    </div>
-                  <div class="mn-cell priority-6 sortable" data-column="Status">Status
-                    (Block <span id="blockheight"></span>) </div>
-                  <div class="mn-cell priority-6 sortable " data-column="IPAddress">IP
-                    Address:Port</div>
-                  <div class="mn-cell priority-6 sortable" data-column="Uptime">Uptime</div>
-                  <div class="mn-cell priority-6 sortable" data-column="NodeLockExpire">Node
-                    Lock Expiration</div>
-                </div>
-                <!-- Table content will be generated dynamically --> </div>
-              <div class="exprow">
-                <div><br>
-                  <br>
-                  <br>
-                  <br>
-                  <div class="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="img/logo_clearbg.png"
-                      alt="nosologo" title="nosologo" style="width: 15px; height: 15px;">&nbsp;;<font
-                      size="1px" color="#bbb">Powered by NOSO Blockchain&nbsp; |
-                      &nbsp; Built by the NOSO Community</font> </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </font> </div>
-    <font color="transparent"> (<span id="node-count"></span>)
-      <script>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-12">
+          <table class="block-info-table" id="richlist">
+            <thead>
+              <tr class="header-row">
+                <th class="priority-1">Rank</th>
+                <th class="priority-1">Top 100 Addresses</th>
+                <th class="priority-6">Custom Description</th>
+                <th class="priority-1">Balance</th>
+                <th class="priority-6">Supply Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <center>
+            <div class="mn-spinner" style="width: 15px; height: 15px;"></div>
+          </center>
+          <!-- Results will be displayed here --> </div>
+      </div>
+      <br>
+    </div>
+    <script>
 
 function search() {
   const input = document.getElementById('search').value.trim();
@@ -412,13 +327,12 @@ document.getElementById('search').addEventListener('keypress', function (e) {
   }
 });
 </script> <!-- JavaScript -->
-      <!-- JavaScript -->
-      <!--scripts for navbar hamburger below-->
-      <script src="js/jquery-1.10.2.js"></script>
-      <script src="js/bootstrap.js"></script>
-      <!--scripts for navbar hamburger above-->
-      <!---charts-->
-      <script src="js/mn-masternodes.js"></script>
-      <script src="js/mn-getblockmns.js"></script> </font>
+    <!-- JavaScript -->
+    <!--scripts for navbar hamburger below-->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <!--scripts for navbar hamburger above-->
+    <script src="js/topaddresses.js"></script>
+    <!---charts-->
   </body>
 </html>
