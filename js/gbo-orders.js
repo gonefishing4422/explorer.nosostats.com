@@ -132,7 +132,7 @@ async function compileOrdersChart(startingBlockHeight, blockInterval) {
                     // Add custom labels based on conditions
                     const blockNumberCell = document.createElement('td');
                     const blockNumberLabel = ''; // Set custom label
-                    blockNumberCell.innerHTML = `${blockNumberLabel} <a target="_blank" href="getblockinfo.html?blockheight=${order.blockNumber}">${order.blockNumber}</a>`;
+                    blockNumberCell.innerHTML = `${blockNumberLabel} <a href="getblockinfo.html?blockheight=${order.blockNumber}">${order.blockNumber}</a>`;
                     row.appendChild(blockNumberCell);
 
                     const timestampCell = document.createElement('td');
@@ -147,15 +147,15 @@ async function compileOrdersChart(startingBlockHeight, blockInterval) {
 
                     const senderCell = document.createElement('td');
                     if (order.sender === "COINBASE") {
-                        senderCell.innerHTML = `<a target="_blank" href="coinbase.html">${order.sender}</a>`;
+                        senderCell.innerHTML = `<a href="coinbase.html">${order.sender}</a>`;
                     } else {
-                        senderCell.innerHTML = `<a target="_blank" href="getaddressbalance.html?address=${order.senderDefault}">${order.sender}</a>`;
+                        senderCell.innerHTML = `<a href="getaddressbalance.html?address=${order.senderDefault}">${order.sender}</a>`;
                     }
                     senderCell.classList.add('priority-1');
                     row.appendChild(senderCell);
 
                     const receiverCell = document.createElement('td');
-                    receiverCell.innerHTML = `<a target="_blank" href="getaddressbalance.html?address=${order.receiverDefault}">${order.receiver}</a>`;
+                    receiverCell.innerHTML = `<a href="getaddressbalance.html?address=${order.receiverDefault}">${order.receiver}</a>`;
                     receiverCell.classList.add('priority-6');
                     row.appendChild(receiverCell);
 
@@ -175,7 +175,7 @@ async function compileOrdersChart(startingBlockHeight, blockInterval) {
                     row.appendChild(referenceCell);
 
                     const orderIDCell = document.createElement('td');
-                    orderIDCell.innerHTML = `<a target="_blank" href="getordersinfo.html?orderid=${order.orderIDDefault}">${order.orderID}</a>`;
+                    orderIDCell.innerHTML = `<a href="getordersinfo.html?orderid=${order.orderIDDefault}">${order.orderID}</a>`;
                     orderIDCell.classList.add('priority-6');
                     row.appendChild(orderIDCell);
 
