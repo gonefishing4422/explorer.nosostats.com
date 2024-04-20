@@ -30,26 +30,6 @@ async function fetchBTCValue() {
   }
 }
 
-async function fetchNosoUsdtAndUpdateElement() {
-  try {
-    const response = await fetch("https://api.nosocoin.com/info/price?range=day&interval=1");
-
-    if (response.ok) {
-      const result = await response.json();
-      const nosoUsdtLastPrice = result[result.length - 1].price.toFixed(4); // Obtain the last price from the response
-      const nosoUsdtLastPriceElement = document.getElementById("noso-usdt-lastPrice"); // Get the element
-      nosoUsdtLastPriceElement.textContent = nosoUsdtLastPrice; // Update the element with the new value
-      
-      // Continue updating the value every 30 seconds
-      setTimeout(fetchNosoUsdtAndUpdateElement, 30000);
-    } else {
-      throw new Error("NosoCoin API request failed");
-    }
-  } catch (error) {
-    console.error("Error fetching NosoCoin data:", error);
-  }
-}
-
 async function displayData() {
   const nosoUsdtLastPriceElement = document.getElementById("noso-usdt-lastPrice");
   const nosoBtcLastPriceElement = document.getElementById("noso-btc-lastPrice");
@@ -57,9 +37,6 @@ async function displayData() {
   // Initialize the values to 0
   nosoUsdtLastPriceElement.textContent = "0.0000";
   nosoBtcLastPriceElement.textContent = "0.00000000";
-
-  // Initial call to fetchNosoUsdtAndUpdateElement
-  fetchNosoUsdtAndUpdateElement();
 
   const nosoCoinData = await fetchNosoCoinData();
   if (nosoCoinData && nosoCoinData.length > 0) {
