@@ -35,40 +35,40 @@ async function displayData() {
   const nosoBtcLastPriceElement = document.getElementById("noso-btc-lastPrice");
 
   // Initialize the values to 0
-  nosoUsdtLastPriceElement.textContent = "0.0000";
+  nosoUsdtLastPriceElement.textContent = "0.000000";
   nosoBtcLastPriceElement.textContent = "0.00000000";
 
   const nosoCoinData = await fetchNosoCoinData();
   if (nosoCoinData && nosoCoinData.length > 0) {
     const lastDataPoint = nosoCoinData[nosoCoinData.length - 1];
-    const nosoUsdtLastPrice = lastDataPoint.price.toFixed(4); // Convert to string
+    const nosoUsdtLastPrice = lastDataPoint.price.toFixed(5); // Convert to string with 6 decimal places
     
     // Slowly update the initial USDT value
     let currentUsdtPrice = 0;
     const targetUsdtPrice = parseFloat(nosoUsdtLastPrice);
     const usdtInterval = setInterval(() => {
       currentUsdtPrice += targetUsdtPrice / 20; // Increment by 1/20th of the target price
-      nosoUsdtLastPriceElement.textContent = currentUsdtPrice.toFixed(4);
+      nosoUsdtLastPriceElement.textContent = currentUsdtPrice.toFixed(5);
       if (currentUsdtPrice >= targetUsdtPrice) {
         clearInterval(usdtInterval);
       }
-    }, 10); // Update every 500 milliseconds for a slow count-up
+    }, 50); // Update every 10 milliseconds for a slow count-up
 
-    // Update the last digit of the USDT price every 10 seconds
-    let current1000thDigit = 0;
+    // Update the 100000th digit of the USDT price every 10 seconds
+    let current100000thDigit = 0; // Change variable name to reflect the 100000th digit
     let randomDigit = Math.floor(Math.random() * 10);
     const updateInterval = setInterval(() => {
-      if (current1000thDigit < randomDigit) {
-        current1000thDigit++;
-        nosoUsdtLastPriceElement.textContent = nosoUsdtLastPrice.slice(0, -1) + current1000thDigit;
-      } else if (current1000thDigit > randomDigit) {
-        current1000thDigit--;
-        nosoUsdtLastPriceElement.textContent = nosoUsdtLastPrice.slice(0, -1) + current1000thDigit;
+      if (current100000thDigit < randomDigit) {
+        current100000thDigit++;
+        nosoUsdtLastPriceElement.textContent = nosoUsdtLastPrice.slice(0, -1) + current100000thDigit;
+      } else if (current100000thDigit > randomDigit) {
+        current100000thDigit--;
+        nosoUsdtLastPriceElement.textContent = nosoUsdtLastPrice.slice(0, -1) + current100000thDigit;
       }
 
       // Update the BTC value accordingly
       const btcValue = parseFloat(nosoBtcLastPriceElement.textContent);
-      const updatedBtcValue = btcValue * (parseFloat(nosoUsdtLastPriceElement.textContent) / parseFloat(nosoUsdtLastPriceElement.textContent.slice(0, -1) + (current1000thDigit - 1)));
+      const updatedBtcValue = btcValue * (parseFloat(nosoUsdtLastPriceElement.textContent) / parseFloat(nosoUsdtLastPriceElement.textContent.slice(0, -1) + (current100000thDigit - 1)));
       nosoBtcLastPriceElement.textContent = updatedBtcValue.toFixed(8);
     }, 50); // Update every 50 milliseconds
 
@@ -80,7 +80,7 @@ async function displayData() {
     const btcValue = await fetchBTCValue();
     if (btcValue) {
       const nosoValueInUsdt = lastDataPoint.price; // Use the obtained Noso value
-      const nosoToBtcValue = (nosoValueInUsdt / btcValue).toFixed(8); // Convert to string
+      const nosoToBtcValue = (nosoValueInUsdt / btcValue).toFixed(8); // Convert to string with 8 decimal places
 
       // Initialize the BTC value
       nosoBtcLastPriceElement.textContent = nosoToBtcValue;
