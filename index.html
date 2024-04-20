@@ -91,10 +91,23 @@ crossorigin="anonymous">
 
         #orders-chart-container::-webkit-scrollbar {
             display: none; /* WebKit (Chrome, Safari, etc.) */
-        }    
+        }
+        .fade-in-out {
+  			animation: fadeInOut 1s infinite alternate;
+      }
+
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0.5; /* Almost clear */
+        }
+        100% {
+          opacity: 1; /* White */
+        }
+      }
+
     </style>
   </head>
-  <body onload="loadNodeIpAddressCount();" color="#222222" style="                                                                                                    background-image: url();">
+  <body onload="loadNodeIpAddressCount();" color="#222222" style="                                                                                                                  background-image: url();">
     <div id="wrapper">
       <!-- PLACE IMPORTANT ANNOUNCEMENTS BELOW -->
       <!--    <div id="TxWarn" style="position:fixed;left:20px;top:65px;background-color:#C30000;color:#fff;border-radius:20px;max-width:350px;padding:8px;z-index:999999;display:none;text-align:center;opacity:.9;font-size:20px"><img
@@ -383,29 +396,41 @@ crossorigin="anonymous">
               <font size="2">
                 <div class="col-lg-3">
                   <div class="panel panel-info">
-                    <div class="panel-head-tiles">
+                    <div class="panel-head-tiles2">
                       <div class="row">
                         <div class="col-xs-6 text-right">
-                          <p class="announcement-heading" style="margin-left: 0px; width: 164px;"><span
+                          <p class="announcement-heading2" style="margin-left: 10px; width: 164px;"><span
 
-                              id="halving-timer">0</span><font class="announcement-subheading">Blocks
-                              Remaining</font></p>
-                          <p class="announcement-text" style="width: 176px;"><font
+                              id="halvingtimerdate">0</span>&nbsp;&nbsp;<img
 
-                              color="white"><span id="halving-timer-days">0</span></font>&nbsp;
-                            Days until Next Halving</p>
-                        </div>
+                                src="img/nosohalf.png" height="15" width="15px"><font class="fade-in-out"
+
+                              size="4" color="white">Halving</font><font
+
+                              class="announcement-subheading2"><img src="img/nosohalf2.png"
+
+                                height="15" width="15px"></font></p>
+                          <p class="announcement-text2" style="width: 196px;"><font
+
+                              size="2"><font color="white"></font>Days
+                              Remaining:<font color="white"> <span id="halving-timer-days"></span></font><br>
+                            </font></p>
+                          <font size="2">
+                            <p class="announcement-text2" style="width: 176px;">Blocks
+                              Remaining:&nbsp; <font color="white"><span id="halving-timer">0</span>&nbsp;</font>
+                            </p>
+                          </font></div>
                       </div>
-                    </div>
-                    <a href="blocks.html">
-                      <div class="panel-footer announcement-bottom">
-                        <div class="row">
-                          <div class="col-xs-6">NOSO Blocks</div>
-                          <div class="col-xs-6 text-right"> <i class="fa fa-arrow-circle-right"></i>
+                      <font size="2"> </font></div>
+                    <font size="2"> <a href="blocks.html">
+                        <div class="panel-footer announcement-bottom">
+                          <div class="row">
+                            <div class="col-xs-6">NOSO Blocks</div>
+                            <div class="col-xs-6 text-right"> <i class="fa fa-arrow-circle-right"></i>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </a> </div>
+                      </a> </font></div>
                 </div>
                 <div class="col-lg-3">
                   <div class="panel panel-info">
