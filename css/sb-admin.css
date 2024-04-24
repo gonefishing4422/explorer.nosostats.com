@@ -608,43 +608,7 @@ table.tablesorter thead tr th:hover {
 	/*  width:20px; */
 	/*  padding: 6px 20px; */
 
-/* Blocks page styles*/
 
-/* Style for the block info table */
-.block-info-table {
-  color: Grey; /* Set font color to white */
-  width: 100%; /* Make table occupy full width */
-  border-collapse: collapse; /* Collapse table borders */
-}
-
-/* Style for the table header row */
-.block-info-table .header-row th {
-  font-weight: bold;
-  font-size: 14px;
-  padding: 5px; /* Add padding to header cells */
-  text-align: center; /* Center align header text */
-  border-bottom: 0px solid black; /* Add bottom border */
-}
-
-/* Style for the table data row */
-.block-info-table .data-row td {
-  padding: 5px; /* Add padding to data cells */
-  text-align: center; /* Center align data text */
-  border-bottom: 1px solid black; /* Add bottom border */
-}
-
-/* Alternate row background color */
-.block-info-table tr:nth-child(even) {
-  background-color: #222; /* Dark background color */
-}
-
-
-
-/* Style for the label div */
-.block-info-table .label,
-.block-info-table .value {
-  display: block; /* Ensure each cell occupies full width */
-}  
 
 
 
